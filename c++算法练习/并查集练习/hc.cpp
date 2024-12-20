@@ -34,15 +34,15 @@ map<int,int> mp ;
        cin>>k>>x>>y ;
     if(x>n||y>n) 
     {   ans++ ;
-    cout<<1<<endl ;
-    cout<<' '<<x<<' '<<y<<endl ;
+    // cout<<1<<endl ;
+    // cout<<' '<<x<<' '<<y<<endl ;
              continue ;
     }
     if(k==2&&x==y)
     {
          ans++;
-         cout<<2<<endl ;
-         cout<<' '<<x<<' '<<y<<endl ;
+        //  cout<<2<<endl ;
+        //  cout<<' '<<x<<' '<<y<<endl ;
          continue ;
     }
        switch(k)
@@ -51,13 +51,13 @@ map<int,int> mp ;
            
           if( find(bu[find(x)])==find(y)) 
            {  ans++ ;
-           cout<<3<<endl ;
-           cout<<' '<<x<<' '<<y<<endl ;
+        //    cout<<3<<endl ;
+        //    cout<<' '<<x<<' '<<y<<endl ;
            }
           else if( find(bu[find(y)])==find(x)) 
               {  ans++ ;
-              cout<<4<<endl ;
-           cout<<' '<<x<<' '<<y<<endl ;
+        //       cout<<4<<endl ;
+        //    cout<<' '<<x<<' '<<y<<endl ;
            }
         
           
@@ -84,14 +84,14 @@ map<int,int> mp ;
                case 2 :
                   if( find(x)==find(y))
                       {  ans++ ;
-                      cout<<5<<endl ;
-           cout<<' '<<x<<' '<<y<<endl ;
+        //               cout<<5<<endl ;
+        //    cout<<' '<<x<<' '<<y<<endl ;
            }
                else if( find(bu[find(y)])==find(x) )
                    {  ans++ ;
-                   cout<<6<<endl ;
-                   cout<<' '<< find(bu[find(y)])<<' '<<find(x)<<endl ;
-           cout<<' '<<x<<' '<<y<<endl ;
+        //            cout<<6<<endl ;
+        //            cout<<' '<< find(bu[find(y)])<<' '<<find(x)<<endl ;
+        //    cout<<' '<<x<<' '<<y<<endl ;
            }
               else 
               {  
@@ -107,7 +107,7 @@ map<int,int> mp ;
               else if( find(bu[find(x)])!=0) me[find(bu[find(x)])] = find(y) ;
               
               
-              if(find(bei[find(y)])!=0) me[find(x)] = find(bei[find(y)]) ;
+           if(find(bei[find(y)])!=0) me[find(x)] = find(bei[find(y)]) ;
               if(find(bei[find(y)])==0) 
               { bei[find(y)] = find(x) ;
                 bu[find(bu[find(y)])] =find(x) ;
