@@ -21,18 +21,18 @@ void pri(int n )
                 me[i*prime[j]]=1 ;
                 if(i%prime[j]==0) break ;
            }
-            if(!me[i]) 
-             {  
-                dp[i]++ ;
-               for(int j = 0 ; j <it;j++)
-               {
-                    if(i+prime[j]>n) break ;  
-                  dp[  i+ prime[j] ] += dp[i] * dp[prime[j]] ;
-               //    cout<<dp[j]<<' ' ;
-               }
-               // cout<<'\n' ;
+          //   if(!me[i]) 
+          //    {  
+          //       dp[i]++ ;
+          //      for(int j = 0 ; j <it;j++)
+          //      {
+          //           if(i+prime[j]>n) break ;  
+          //         dp[  i+ prime[j] ] += dp[i] * dp[prime[j]] ;
+          //      //    cout<<dp[j]<<' ' ;
+          //      }
+          //      // cout<<'\n' ;
 
-             }
+          //    }
       }
 }
 void solve()
