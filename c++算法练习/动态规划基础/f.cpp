@@ -6,45 +6,32 @@ ll dp[N]={0} ;
 int me[N] ={0} ;
 int prime[N] ,it ;
 
-void pri(int n )
+void pri()
 {
-      for(int i= 2; i <=n ;i++)
+      for(int i= 2; i <=N ;i++)
       {
            if(!me[i]) 
-             {  prime[it++] = i ;
-          
-
-             }
+                prime[it++] = i ; 
            for(int j = 0 ; j< it ;j++)
            {
-                if(i*prime[j]>n) break ;
+                if(i*prime[j]>=N) break ;
                 me[i*prime[j]]=1 ;
                 if(i%prime[j]==0) break ;
            }
-          //   if(!me[i]) 
-          //    {  
-          //       dp[i]++ ;
-          //      for(int j = 0 ; j <it;j++)
-          //      {
-          //           if(i+prime[j]>n) break ;  
-          //         dp[  i+ prime[j] ] += dp[i] * dp[prime[j]] ;
-          //      //    cout<<dp[j]<<' ' ;
-          //      }
-          //      // cout<<'\n' ;
-
-          //    }
+          
       }
 }
 void solve()
-{
+{ pri() ;
      int n;
      cin>>n ;
-     pri( n) ;
-     for(int i = 0; i <=n ;i++)
-     {
-          cout<<dp[i]<<' ' ;
-     }
-     cout<<'\n' ;
+
+     dp[0]=1 ;
+for(int i = 2 ; i<=n ;i++)
+   if(!me[i])
+     for(int j = i ; j<=n ;j++)
+       dp[j]+=dp[j-i] ;
+
      cout<<dp[n]<<'\n' ; 
 }
 int main()
