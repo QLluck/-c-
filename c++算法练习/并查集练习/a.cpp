@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std ;
+
 const int N = 1e5+7 ;
 #define ll long long
 int n,m ;
@@ -21,6 +22,7 @@ void solve()
           
       }
 
+
   ll ans = 0 ;
       for(int i = 0 ; i<m ;i++)
       {
@@ -29,13 +31,12 @@ void solve()
         int mi = min(arr[find(x)],arr[find(y)] ) ;
         me[find(x)] = find(y) ;
         arr[find(y)] = mi ;
-
-
       }
       map<int,int> mp ;
       for(int i = 1 ; i<=n ;i++)
       {  if(mp.count(find(i)))continue ;
          ans+= arr[find(i)] ;
+         
          mp[find(i)] =  1; 
       }
       cout<<ans<<endl ;
