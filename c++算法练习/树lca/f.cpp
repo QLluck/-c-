@@ -1,9 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std ;
 const int N = 3e5+7 ;
+const int P =998244353 ;
 vector<int> t[N];
 int de[N]={0},fa[N][27]={0};
 //lca
+#define ll long long 
+ll po(ll a ,ll b )
+{   ll res =1  ; 
+      while(b)
+      {
+           if(b&1) res=res*a%P;
+           b>>=1 ;
+           a=a*a%P;
+
+      }
+      return res ;
+}
 #define ll long long
 
 void dfs(int u,int fat)
@@ -45,28 +58,41 @@ int lca(int u,int v)
 
 void solve()
 {
-      int n,m,s;
-      scanf("%d %d %d",&n,&m,&s);
+      int n;
+      scanf("%d",&n);
       for(int i = 1 ;i<n ;i++)
       {
           int x,y ;
         scanf("%d %d",&x,&y);
           
-          t[y].push_back(x);
+        //   t[y].push_back(x);
           t[x].push_back(y);
       }
-    
-     dfs(s,0);
+    de[0]=-1 ;
+     dfs(1,0);
 
-
+     int m ;
+     scanf("%d",&m);
     // cout<<"??"<<fa[2][0]<<'\n';
     // for(int i=0 ;i<t[4].size() ; i++)cout<<t[4][i]<<' ' ;
      for(int i = 1 ;i <=m ;i++)
-     {  int x ,y ;
-         scanf("%d %d",&x,&y);
+     {  int x ,y ,k ;
+         scanf("%d %d %d",&x,&y,&k);
          
           int a = lca(x,y);
-          printf("%d\n",a);
+      ll sum = 0 ; 
+     // printf("%d %d %d\n",de[x],de[y],de[a]);
+      for( int j =de[x] ; j >= de[a] ; j--)
+      {
+          sum= sum+ po(j,k)%P;
+      }
+      for( int j =de[y] ; j >= de[a] ; j--)
+      {
+          sum= sum+ po(j,k)%P;
+      }
+      sum=sum - po(de[a],k) ;
+
+          printf("%lld\n",sum);
      }
 
 
