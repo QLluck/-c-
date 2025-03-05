@@ -10,28 +10,56 @@ void solve()
     cin>>n >>x>>k;
     string s ;
     cin>>s ;
-    arr[0]=1 ;
-   int  flag = 0 ; 
-      int it1 =-1  ; 
-      int it2 = -1 ; 
-      map<int ,int > mp;
-    for(int i = 0 ; i <n ;i++)
-    {
-          if(s[i]=='R')arr[i]=arr[i-1]+1 ;
-          else arr[i]=arr[i-1]-1 ;
-          if(arr[i]==0) flag ++ ;
-          if(flag ==1 ) it1 = i ;
-          if(mp.count(arr[i]))
-          {
-              it2 = arr[i];
-              if(it1!=-1&& )
-          }
-          
-    }
-    if(flag ==2 )
-    {
-          
-    }
+
+    int  flag = 0  ; 
+     arr[0]= x ;
+     ll it1 = -1 ;
+     ll it2 = -1 ;
+       for(int i =0 ; i<s.size() ; i++)
+       {
+           if(s[i]=='L')arr[i+1]=arr[i]-1 ;
+           else arr[i+1]=arr[i]+1 ;
+           if(arr[i+1]==0&&flag==0)
+           {
+              flag =1 ;
+              it1 = i ;
+              arr[i+1] = -x ;
+           }
+           if(arr[i+1]==0&&flag ==1)
+           {
+              flag =2; 
+              it2 = i ;
+              break ;
+           }
+       }
+
+        if(flag==0)
+        {
+               cout<<0<<'\n';
+        }
+        else if(flag==1)
+        {
+              if(k>=it1+1)cout<<1<<'\n';
+              else cout<<0<<'\n';
+        }
+else 
+        {   
+             if(k<it1 +1 )
+             {
+                 cout<<0<<'\n';
+             }
+             else if(k<= 2*(it1+1 ) + (it2 - it1 -1 ))cout<<1<<'\n';
+             
+
+        }
+
+    return ;
+
+
+    
+
+
+    
    
        
    
