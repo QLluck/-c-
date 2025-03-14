@@ -13,7 +13,7 @@ struct edge
 };
 edge e[N];
 int me[N]={0},it;
-vector<edge> arr[N]; 
+vector<edge> arr[1007]; 
 bool cmp(edge a,edge b )
 {
      return a.w>b.w;
@@ -37,7 +37,7 @@ void dru()
     }
 }
 
-int ans = 0 ;
+
 queue<int> que;
 void bfs()
 {
@@ -54,11 +54,7 @@ void bfs()
             if(me[v]!=inf)continue ;
             me[v]=min(w,me[u]);
             que.push(v);
-           // cout<<v<<'\n';
-
-
-
-        
+           // cout<<v<<'\n';    
             
         }
 
@@ -66,8 +62,8 @@ void bfs()
 }
 void solve()
 {  it = 0 ;
-    ans = 0 ;
-   cin>>n>>m;
+  
+   cin>>m>>n;
    for(int i=1 ;i<=n ;i++)
    {arr[i].clear();
     me[i]=i;
