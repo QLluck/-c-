@@ -13,7 +13,7 @@ struct edge{
 vector<edge> e[N];
 
 int d[N] = {0}, me[N] = {0};
-int n;
+int n,m;
 priority_queue<pair<int, int> > que;
 void disk(int s )
 {
@@ -45,8 +45,12 @@ void disk(int s )
  }
 void solve()
 {
-    int m;
-    cin>>n >> m;
+    
+for(int i=1 ;i<=n ;i++)
+{
+     me[i]=0;
+     e[i].clear();
+}
   for(int i =1 ;i<=m ;i++)
   {
       int a ,b,c;
@@ -62,5 +66,6 @@ void solve()
 int main()
 {
     ios::sync_with_stdio(0), cout.tie(0), cin.tie(0);
+    while(cin>>n>>m)
     solve();
 }
