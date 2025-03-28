@@ -2,7 +2,7 @@
 using namespace std ;
 const int N =1e5+7 ;
 #define ll long long 
-ll n,q,m;
+ll n,q,P;
 struct node
 {
     ll l,r ,sum,la,lax ;
@@ -11,15 +11,15 @@ struct node
 ll arr[N]={0};
 void pushup(ll p)
 {
-      t[p].sum =( t[p<<1].sum +t[p<<1|1].sum ) %m;
+      t[p].sum =( t[p<<1].sum +t[p<<1|1].sum ) %P;
 }
 
 void pushdown(ll p)
 {
       if(t[p].la)
       {
-          t[p<<1].sum +=  (t[p].la *(t[p<<1].r -t[p<<1].l+1))%m;
-          t[p<<1|1].sum +=  (t[p].la *(t[p<<1|1].r -t[p<<1|1].l+1))%m;
+          t[p<<1].sum +=  (t[p].la *(t[p<<1].r -t[p<<1].l+1))%P;
+          t[p<<1|1].sum +=  (t[p].la *(t[p<<1|1].r -t[p<<1|1].l+1))%P;
           t[p<<1].la += t[p].la ;
           t[p<<1|1].la += t[p].la ;
           t[p].la = 0 ;
@@ -30,7 +30,7 @@ void build(ll p,ll l,ll r )
 {
      node temp = {l,r,arr[l],0,0};
      t[p]=temp ;
-     cout<<l<<' '<<r<<' '<<arr[l]<<' '<<t[p].sum<<'\n';
+    // cout<<l<<' '<<r<<' '<<arr[l]<<' '<<t[p].sum<<'\n';
      if(l==r)return ;
      ll m = (l+r)>>1;
      build(p<<1,l,m);
@@ -42,7 +42,7 @@ void update(ll p,ll l,ll r,ll w)
 {
       if(l<=t[p].l&&t[p].r<=r)
     {
-        t[p].sum+=w*(t[p].r-t[p].l+1) %m;
+        t[p].sum+=w*(t[p].r-t[p].l+1) %P;
         t[p].la +=w ;
         return ;
     }
@@ -57,8 +57,7 @@ void updatex(ll p,ll l,ll r ,ll w)
 {   pushdown(p);
     if(l<=t[p].l&&t[p].r<=r)
     {
-        t[p].sum =w*t[p].sum %m;
-       
+        t[p].sum = w * t[p].sum % P;
     }
     if(t[p].l==t[p].r)return ;
     ll m =(t[p].r+t[p].l)>>1;
@@ -69,19 +68,19 @@ void updatex(ll p,ll l,ll r ,ll w)
     
 }   
 ll query(ll p,ll l,ll r)
-{    cout<<t[p].sum<<' '<<p<<'\n';
-    // if(l<=t[p].l&&t[p].r<=r)
-    // {
-    //     return t[p].sum%m;
-    // }
-    if(t[p].r==t[p].l)return  t[p].sum;
+{   // cout<<t[p].sum<<' '<<p<<'\n';
+    if(l<=t[p].l&&t[p].r<=r)
+    {
+        return t[p].sum%P;
+    }
+    
     pushdown(p);
     ll m =(t[p].r+t[p].l)>>1;
     ll sum = 0 ;
-    if(l<=m) sum+=query(p<<1,l,r) %m ;
-    if(m<r) sum+=query(p<<1|1,l,r)%m ;
+    if(l<=m) sum+=query(p<<1,l,r) %P ;
+    if(m<r) sum+=query(p<<1|1,l,r)%P ;
     
-    return sum %m;
+    return sum %P;
 }
 void print()
     {
@@ -91,12 +90,13 @@ void print()
 
 void solve()
 {
-    cin>>n>>q>>m;
+    cin>>n>>q>>P;
     for(int i=1 ;i<=n; i++)cin>>arr[i];
-    for(int i =1; i<=n ;i++)cout<<arr[i]<<' ';
-    cout<<'\n';
+    // for(int i =1; i<=n ;i++)cout<<arr[i]<<' ';
+    // cout<<'\n';
     build(1,1,n);
-    query(1,1,n);
+    print();
+
     //print();
     for(int i =1 ;i<=q ; i++)
     {
