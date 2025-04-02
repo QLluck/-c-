@@ -1,54 +1,41 @@
 #include <bits/stdc++.h>
-using namespace std ;
-#define ll long long
-const int N =1e4+7;
-const int inf =1e9+7;
-
-int n;
-ll arr[N][2];
-
-
-void solve()
-{
-   cin>>n ;
-   for(int i=1 ;i<=n ;i++)cin>>arr[i][0]>>arr[i][1];
-   ll mi = inf ;
-   ll ma= 0 ; 
-   for(int i =1; i<=n ;i++)
-   {
-      ll x = arr[i][0];
-      ll k = arr[i][1];
-      ll l = 0 ; 
-      ll r = inf ; 
-      while(l+1!=r)
-      {
-          ll mid = (l+r)/2;
-          if(x/mid>k)l=mid;
-          else r =mid ;
-        //  cout<<l<<' '<<r<<' '<<x/mid<<' '<<x<<' '<<k*mid<<'\n';
-      }
-    if(i==1)mi=r;
-    else mi=max(mi,r);
-       l = 0 ; 
-       r = inf ; 
-      while(l+1!=r)
-      {
-          ll mid = (l+r)/2;
-          if(x/mid>=k)l=mid;
-          else r =mid ;
-      }
-    if(i==1)ma=l;
-    else ma = min(l,ma);
-
-
-
-   }
-   cout<<mi<<' '<<ma<<'\n' ;
- 
+using namespace std;
+#define ll long long 
+bool cmp(string a,string b)
+{   int i = 5;
+    while(i<=a.size()-1)
+    {
+        if(a[i]==':'||a[i]=='-')
+        {
+            i++;
+            continue;
+        }
+        if(a[i]>b[i])return 1;
+        else if(a[i]<b[i])return 0;
+        i++;
+    }
+    return 0 ;
+}
+ll f(string a,string b)
+{  
+   ll day = 3600*24;
 }
 int main()
-{  ios::sync_with_stdio(0),cout.tie(0),cin.tie(0);
-   solve();
+{ 
+  vector<string>arr;
   // 请在此输入您的代码
+  for(int i =1 ;i<=520 ; i++)
+   {  string s1;
+    cin>>s1;
+    arr.push_back(s1);
+   }
+  sort(arr.begin(),arr.end(),cmp);
+  cout<<"--------------"<<'\n';
+  for(int i =0 ;i<=519 ;i++)
+  {
+      cout<<arr[i]<<'\n';
+  }
+  
+
   return 0;
 }
