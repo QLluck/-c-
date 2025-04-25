@@ -16,19 +16,23 @@ void pushup(ll p)
 
 void pushdown(ll p)
 {
-      if(t[p].la)
-      {
-          t[p<<1].sum +=  (t[p].la *(t[p<<1].r -t[p<<1].l+1))%P;
-          t[p<<1|1].sum +=  (t[p].la *(t[p<<1|1].r -t[p<<1|1].l+1))%P;
-          t[p<<1].la += t[p].la ;
-          t[p<<1|1].la += t[p].la ;
+  
+      
+          t[p<<1].sum = ((t[p<<1].sum*t[p].lax)+ (t[p].la *(t[p<<1].r -t[p<<1].l+1)) )%P;
+          t[p<<1|1].sum = ((t[p<<1|1].sum*t[p].lax) +(t[p].la *(t[p<<1|1].r -t[p<<1|1].l+1)) )%P ;
+          t[p << 1].lax = (t[p << 1].lax * t[p].lax) % P;
+          t[p << 1 | 1].lax = (t[p << 1 | 1].lax * t[p].lax)  % P;
+          t[p<<1].la = (t[p<<1].la*t[p].lax+t[p].la )  %P ;
+          t[p<<1|1].la = (t[p<<1|1].la* t[p].lax + t[p].la)  %P ;
+          t[p].lax = 1;
           t[p].la = 0 ;
           
-      }
+      
 }
+
 void build(ll p,ll l,ll r )
 {
-     node temp = {l,r,arr[l],0,0};
+     node temp = {l,r,arr[l]%P,0,1 };
      t[p]=temp ;
     // cout<<l<<' '<<r<<' '<<arr[l]<<' '<<t[p].sum<<'\n';
      if(l==r)return ;
@@ -40,10 +44,11 @@ void build(ll p,ll l,ll r )
 }
 void update(ll p,ll l,ll r,ll w)
 {
-      if(l<=t[p].l&&t[p].r<=r)
+   
+    if (l <= t[p].l && t[p].r <= r)
     {
-        t[p].sum+=w*(t[p].r-t[p].l+1) %P;
-        t[p].la +=w ;
+        t[p].sum=(t[p].sum+w*(t[p].r-t[p].l+1))%P ;
+        t[p].la =(t[p].la+w)%P ;
         return ;
     }
     pushdown(p);
@@ -54,33 +59,37 @@ void update(ll p,ll l,ll r,ll w)
 
 }
 void updatex(ll p,ll l,ll r ,ll w)
-{   pushdown(p);
-    if(l<=t[p].l&&t[p].r<=r)
+{
+  
+
+    if(l<=t[p].l &&t[p].r<=r)
     {
-        t[p].sum = w * t[p].sum % P;
+        t[p].sum =t[p].sum* w % P;
+        t[p].lax =t[p].lax *w % P;
+        t[p].la = t[p].la * w % P;
+
+        return;
     }
-    if(t[p].l==t[p].r)return ;
-    ll m =(t[p].r+t[p].l)>>1;
+    pushdown(p);
+    ll m = (t[p].r + t[p].l) >> 1;
     if(l<=m) updatex(p<<1,l,r,w);
     if(m<r) updatex(p<<1|1,l,r,w);
-    
-
-    
+    pushup(p);
 }   
 ll query(ll p,ll l,ll r)
 {   // cout<<t[p].sum<<' '<<p<<'\n';
     if(l<=t[p].l&&t[p].r<=r)
     {
-        return t[p].sum%P;
+        return t[p].sum ;
     }
     
     pushdown(p);
     ll m =(t[p].r+t[p].l)>>1;
     ll sum = 0 ;
-    if(l<=m) sum+=query(p<<1,l,r) %P ;
-    if(m<r) sum+=query(p<<1|1,l,r)%P ;
+    if(l<=m) sum= (sum+query(p<<1,l,r))%P ;
+    if(m<r) sum=(sum+query(p<<1|1,l,r))%P ;
     
-    return sum %P;
+    return sum ;
 }
 void print()
     {
@@ -95,7 +104,7 @@ void solve()
     // for(int i =1; i<=n ;i++)cout<<arr[i]<<' ';
     // cout<<'\n';
     build(1,1,n);
-    print();
+    // print();
 
     //print();
     for(int i =1 ;i<=q ; i++)
@@ -116,9 +125,12 @@ void solve()
          else if(x==3)
          {
              cin>>l>>r;
-             cout<<query(1,l,r)<<'\n';
+             cout<<query(1,l,r)%P<<'\n';
          }
-         print();
+         
+        //  cout << query(1, 1, 4) << '\n' ;
+        //  cout << query(1, 1, 2) << '\n';
+        //  cout << query(1, 3, 4) << '\n';
     }
 }
 int main()
