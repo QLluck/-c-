@@ -1,76 +1,125 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long 
 const int N = 507;
-string arr[N][N];
-string b[N];
-pair<int, int> pai[N];
-bool cmp(pair<int, int> a, pair<int, int> b)
+
+int ma[70] = {0};
+int mb[70] = {0};
+int mc[70] = {0};
+int md[70] = {0};
+void z(ll x,int me[] )
 {
-    return a.first > b.first;
+   
+    for (int i = 61;i>=1; i--)
+    {
+         if(x&1)
+             me[i] = 1;
+         x >>= 1;
+    }
 }
 void solve()
 {
+    ll b, c, d;
+    cin >> b >> c >> d;
+    for (int i = 1; i <= 64;i++)
+    {
+        ma[i] = 0;
+        mb[i] = 0;
+        mc[i] = 0;
+        md[i] = 0;
+    
+    }
+    z(b, mb);
+    z(c, mc);
+    z(d, md);
+    ll flag = 0;
+    for (int i = 1; i <= 61;i++)
+    {
+        flag *= 2;
+        flag += md[i];
 
-    int n, m;
-    cin >> n >> m;
-    for (int i = 1; i <= n; i++)
-        cin >> b[i];
-    for (int i = 1; i <= m; i++)
-    {
-        for (int j = 1; j <= n; j++)
-            cin >> arr[i][j];
-    }
-    map<int, int> mp;
-    for (int i = 1; i <= m; i++)
-    {
-        int num = 0;
-        for (int j = 1; j <= n; j++)
+        if (mb[i]==0&&mc[i]==0)
         {
-            if (b[j] == arr[i][j])
-                num++;
-        }
-        pai[i].first = num;
-        pai[i].second = i;
-    }
-    sort(pai + 1, pai + m + 1, cmp);
-    int num = 0;
-    int ans = 0;
-    for (int i = 1; i <= m; i++)
-    {
-        int it = pai[i].second;
-        if (i == 1)
-        {
-            ans += n;
-            num += pai[i].first;
-            for (int j = 1; j <= n; j++)
+            if(flag==0)
+                ma[i] = 0;
+            else if(flag==1)
+             {   ma[i] = 1;
+                 flag--;
+             }
+            else if(flag>=2)
             {
-                if (arr[it][j] == b[j])
-                {
-                    mp[j] = 1;
-                }
+                ma[i] = 1;
+                flag--;
             }
         }
-        else
+        else if (mb[i]==1&&mc[i]==1)
         {
-            for (int j = 1; j <= n; j++)
+            if(flag==0)
+               {
+                   cout << -1 << '\n';
+                   return;
+               }
+            else if(flag==1)
+             {   ma[i] = 0;
+                 flag--;
+             }
+            else if(flag>=2)
             {
-                if (mp.count(j))
-                    continue;
-                if (b[j] == arr[it][j])
-                {
-                    num++;
-                    ans += 2;
-                    mp[j] = 1;
-                }
+                ma[i] = 1;
+                flag-=2;
             }
         }
-        if (num == n)
+        else if (mb[i]==1&&mc[i]==0)
         {
-            cout << ans << '\n';
+            if(flag==0)
+               {
+                   cout << -1 << '\n';
+                   return;
+               }
+            else if(flag==1)
+             {   ma[i] = 0;
+                 
+             }
+            else if(flag>=2)
+            {
+                ma[i] = 1;
+                flag-=2;
+            }
+        }
+        
+        else if (mb[i]==0&&mc[i]==1)
+        {
+            if(flag==0)
+                ma[i] = 0;
+            else if(flag==1)
+               { ma[i] = 1;
+
+               }
+            else if(flag>=2)
+            {
+                ma[i] = 1;
+                flag-=2;
+            }
+        }
+        if (flag >= 2)
+        {
+            cout << -1 << '\n';
             return;
         }
     }
-    cout << -1 << '\n';
+    if(flag>0)
+    {
+        cout << -1 << '\n';
+        return;
+    }
+    ll sum= 0 ;
+    ll ji =1;
+    for (int i = 61; i >= 1;i--)
+    {
+        sum = sum + ji * ma[i];
+        ji <<= 1;
+    }
+    cout << sum << '\n';
 }
 int main()
 {
