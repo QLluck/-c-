@@ -6,36 +6,43 @@ int n, k;
 int arr[N] = {0};
 priority_queue<int> que;
 int f(int mid)
-{while(!que.empty())
+{
+    while (!que.empty())
         que.pop();
+
     int num = 0;
-    int mex = 1e9;
+
     int mext = 0;
     int it = 1;
-    while(it<=n)
+    // cout<<mid<<'\n';
+    // cout<<"----------------"<<'\n';
+    while (it <= n)
     {
         que.push(-arr[it]);
         it++;
-        while(mext==-que.top())
+        while (!que.empty() && mext > -que.top())
+            que.pop();
+        while (!que.empty() && mext == -que.top())
         {
             mext++;
-            que.pop();
-            if(mext>=mid)
+            while (!que.empty() && mext > -que.top())
+                que.pop();
+
+            if (mext >= mid)
             {
                 num++;
-                mex = min(mext, mex);
+
                 mext = 0;
-                while(que.size())
+                while (que.size())
                     que.pop();
+                //  cout<<"yes"<<'\n';
                 break;
                 
             }
+            // cout<<it<<' '<<mext<<'\n';
         }
     }
-   // cout << mid << ' ' << num << ' ' << mext << endl;
-
-
-    if(num>=k)
+    if (num >= k)
     {
         return 1;
     }
@@ -45,21 +52,21 @@ int f(int mid)
 void solve()
 {
     cin >> n >> k;
-    for (int i = 1; i <= n;i++)
+    for (int i = 1; i <= n; i++)
         cin >> arr[i];
-    int l = 0 ;
+    int l = 0;
     int r = 2e5 + 1;
-    while(l+1!=r)
+    while (l + 1 != r)
     {
         int mid = (l + r) >> 1;
-        if(f(mid))
+        if (f(mid))
             l = mid;
         else
             r = mid;
-      //  cout << mid << ' ' << f(mid) << endl;
+        //  cout<<l <<' '<<r <<' '<<mid<<' '<<f(mid)<<'\n';
     }
-    
-    cout << l << endl;
+
+    cout << l << '\n';
 }
 int main()
 {
@@ -69,7 +76,6 @@ int main()
     while (t--)
     {
         solve();
-
     }
 
 }
