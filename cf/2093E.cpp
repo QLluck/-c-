@@ -7,20 +7,27 @@ int arr[N] = {0};
 priority_queue<int> que;
 int f(int mid)
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
     while (!que.empty())
         que.pop();
 
 =======
+=======
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
 {while(!que.empty())
         que.pop();
 
 
+<<<<<<< HEAD
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
+=======
 >>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
     int num = 0;
 
     int mext = 0;
     int it = 1;
+<<<<<<< HEAD
 <<<<<<< HEAD
     // cout<<mid<<'\n';
     // cout<<"----------------"<<'\n';
@@ -52,6 +59,8 @@ int f(int mid)
     }
     if (num >= k)
 =======
+=======
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
     //cout<<mid<<'\n';
    // cout<<"----------------"<<'\n';
     while(it<=n)
@@ -82,6 +91,9 @@ int f(int mid)
         }
     }
     if(num>=k)
+<<<<<<< HEAD
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
+=======
 >>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
     {
         return 1;
@@ -92,6 +104,7 @@ int f(int mid)
 void solve()
 {
     cin >> n >> k;
+<<<<<<< HEAD
 <<<<<<< HEAD
     for (int i = 1; i <= n; i++)
         cin >> arr[i];
@@ -108,6 +121,8 @@ void solve()
     }
 
 =======
+=======
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
     for (int i = 1; i <= n;i++)
         cin >> arr[i];
     int l = 0 ;
@@ -122,6 +137,9 @@ void solve()
       //  cout<<l <<' '<<r <<' '<<mid<<' '<<f(mid)<<'\n';
     }
     
+<<<<<<< HEAD
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
+=======
 >>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
     cout << l << '\n';
 }
@@ -134,6 +152,10 @@ int main()
     {
         solve();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
 =======
 
 >>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
