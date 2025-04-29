@@ -6,14 +6,22 @@ int n, k;
 int arr[N] = {0};
 priority_queue<int> que;
 int f(int mid)
+<<<<<<< HEAD
 {
     while (!que.empty())
         que.pop();
 
+=======
+{while(!que.empty())
+        que.pop();
+
+
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
     int num = 0;
 
     int mext = 0;
     int it = 1;
+<<<<<<< HEAD
     // cout<<mid<<'\n';
     // cout<<"----------------"<<'\n';
     while (it <= n)
@@ -43,6 +51,38 @@ int f(int mid)
         }
     }
     if (num >= k)
+=======
+    //cout<<mid<<'\n';
+   // cout<<"----------------"<<'\n';
+    while(it<=n)
+    {
+        que.push(-arr[it]);
+      //  cout<<arr[it]<<' '<<'\n';
+        it++;
+        while(!que.empty()&&mext>-que.top())que.pop();
+        while(!que.empty()&&mext==-que.top())
+        {
+            mext++;
+            while(!que.empty()&&mext>-que.top())que.pop();
+
+            if(mext>=mid)
+            {
+                num++;
+               
+                mext = 0;
+                while(que.size())
+                    que.pop();
+                  //  cout<<"yes"<<'\n';
+                break;
+                
+                
+            }
+            //cout<<it<<' '<<mext<<'\n';
+            
+        }
+    }
+    if(num>=k)
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
     {
         return 1;
     }
@@ -52,6 +92,7 @@ int f(int mid)
 void solve()
 {
     cin >> n >> k;
+<<<<<<< HEAD
     for (int i = 1; i <= n; i++)
         cin >> arr[i];
     int l = 0;
@@ -66,6 +107,22 @@ void solve()
         //  cout<<l <<' '<<r <<' '<<mid<<' '<<f(mid)<<'\n';
     }
 
+=======
+    for (int i = 1; i <= n;i++)
+        cin >> arr[i];
+    int l = 0 ;
+    int r = 2e5 + 1;
+    while(l+1!=r)
+    {
+        int mid = (l + r) >> 1;
+        if(f(mid))
+            l = mid;
+        else
+            r = mid;
+      //  cout<<l <<' '<<r <<' '<<mid<<' '<<f(mid)<<'\n';
+    }
+    
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
     cout << l << '\n';
 }
 int main()
@@ -76,6 +133,10 @@ int main()
     while (t--)
     {
         solve();
+<<<<<<< HEAD
+=======
+
+>>>>>>> f8ce2f35b3b84d5f5eb192e4cc672ac9e4196555
     }
 
 }
