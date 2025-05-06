@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std ;
-const int N =1e5+7;
-int cnt[N]={0};
+const int N =2e5+7;
+int cnt[N*32]={0};
 int t[N*32][2]={0},it;
 int arr[N]={0};
 void add(int x )
