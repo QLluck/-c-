@@ -45,7 +45,7 @@ void solve()
             mp2[-que.top()]--;
             que.pop();
          }
-        
+    
         r++;
         l++;
         ans = min(ans, ( (arr[r]-arr[l])*(-que.top()) ));

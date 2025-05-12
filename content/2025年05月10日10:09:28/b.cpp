@@ -13,7 +13,7 @@ void solve()
     int l =0;
     int r =1e3-2 ;
     while(r<=1e6-1)
-    {
+    { 
         int l1 =0 ;
         int r1 = r;
         int num= 0;
@@ -45,6 +45,6 @@ void solve()
 int main()
 {
   ios::sync_with_stdio(0),cout.tie(0),cin.tie(0);
-
+  
   solve();
 }

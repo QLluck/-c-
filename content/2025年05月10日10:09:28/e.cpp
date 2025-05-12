@@ -12,7 +12,7 @@ struct node
 int rx[2]={0,1};
 int ry[2]={1,0};
 int ans =0;
-queue<node> que;
+queue<node> que; 
 
 void bfs()
 {
