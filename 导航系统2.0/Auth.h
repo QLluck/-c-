@@ -10,7 +10,7 @@ using namespace std;
 
 struct User {
     string username;
-    string passwordHash;
+    string password;
     bool isAdmin;
 };
 
@@ -23,7 +23,7 @@ public:
     void loadUsersFromFile();
 
 public:
-    vector<User> users;
+    
     string hashPassword(const string& password);
     string getHiddenInput(const string& prompt);
 };

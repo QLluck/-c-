@@ -63,8 +63,8 @@ class GraphManager {
 public:
     GraphManager();
     ~GraphManager();
-    bool importGraph(const string& fileName); // 导入地图数据
-    bool displayCurrentGraphInfo() const;     // 显示当前地图信息
+    bool importGraph(const string& fileName); // 导入地图数据  
+    bool displayCurrentGraphInfo() const;     // 显示当前地图信息 
     bool depthFirstTraversal();
     bool breadthFirstTraversal();
     bool findShortestPath(const string& start, const string& end); // 查找最短路径

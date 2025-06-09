@@ -2,6 +2,7 @@
 #define ADMIN_H
 #include "Auth.h"
 #include "Graph.h"
+#include"dataManager.h"
 using namespace std;
 
 class Admin {
@@ -12,7 +13,8 @@ public:
     static bool createNewMap(GraphManager& graphManager);
     static bool deleteMap(GraphManager& graphManager);
     static void manageMapVertices(Graph& graph);
-    static void manageMapEdges(Graph& graph);
+    static void manageMapEdges(Graph& graph);\
+    static void exportUserInfo(AuthManager& auth);
 };
 
 #endif

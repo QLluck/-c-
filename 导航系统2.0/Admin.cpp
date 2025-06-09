@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-
+#include "dataManager.h"
 void Admin::adminMenu(AuthManager& auth, GraphManager& graphManager) {
     int choice;
     do {
@@ -22,10 +22,12 @@ void Admin::adminMenu(AuthManager& auth, GraphManager& graphManager) {
             cout << "\n=== 用户管理 ===\n";
             cout << "1. 删除用户\n";
             cout << "2. 修改用户密码\n";
+            cout<<  "3.导出用户信息\n";
             cout << "0. 返回\n";
             cin >> choice;
             if (choice == 1) deleteUser(auth);
             else if (choice == 2) modifyUser(auth);
+            else if (choice == 3) exportUserInfo(auth);
             break;
         case 2:
             cout << "\n=== 地图管理 ===\n";
@@ -80,41 +82,63 @@ void Admin::adminMenu(AuthManager& auth, GraphManager& graphManager) {
         }
     } while (choice != 0);
 }
-
+//删除可改
 void Admin::deleteUser(AuthManager& auth) {
     // 原有逻辑不变
     string username;
     cout << "输入要删除的用户名：";
     cin >> username;
-    auto& users = auth.users;
-    for (auto it = users.begin(); it != users.end(); ++it) {
-        if (it->username == username && !it->isAdmin) {
-            users.erase(it);
-            auth.saveUsersToFile();
-            cout << "用户已删除！\n";
-            return;
-        }
+   // auto& users = auth.users;
+    DataManager &db = DataManager::getInstance();
+
+    // for (auto it = users.begin(); it != users.end(); ++it) {
+    User user;
+    if(db.queryUser(username, &user))
+    {
+    if (  !user.isAdmin)
+    {
+        //users.erase(it);
+        //auth.saveUsersToFile();
+        if(db.deleteUser(username))
+        cout << "用户已删除！\n";
+        else
+            cout << "删除失败:数据库错误\n";
+        return;
+        // }
     }
+}
     cout << "用户不存在或不能删除管理员！\n";
 }
-
+//修改 可改
 void Admin::modifyUser(AuthManager& auth) {
     // 原有逻辑不变
     string username;
     cout << "输入要修改的用户名：";
     cin >> username;
-    for (auto& user : auth.users) {
-        if (user.username == username && !user.isAdmin) {
-            string newPassword = auth.getHiddenInput("新密码：");
-            user.passwordHash = auth.hashPassword(newPassword);
-            auth.saveUsersToFile();
+    DataManager & db = DataManager::getInstance();
+    User user; 
+    //   for (auto& user : auth.users) {
+    if(db.queryUser(username, &user)) 
+    {
+
+    if ( !user.isAdmin)
+    {
+        string newPassword = auth.getHiddenInput("新密码：");
+        string passwordHash = auth.hashPassword(newPassword);
+        string password = "password";
+        if (db.updateUser(username, password, passwordHash))
+            // auth.saveUsersToFile();
+      
             cout << "密码已更新！\n";
-            return;
-        }
+        else
+            cout << "更新失败\n";
+        return;
+        //    }
     }
+}
     cout << "用户不存在或不能修改管理员！\n";
 }
-
+//创建 可改
 bool Admin::createNewMap(GraphManager& graphManager) {
     string mapName;
     cout << "输入新地图名称：";
@@ -148,7 +172,7 @@ bool Admin::createNewMap(GraphManager& graphManager) {
     file.close();
     return graphManager.importGraph(filename);
 }
-
+//删除 可改
 bool Admin::deleteMap(GraphManager& graphManager) {
     graphManager.displayAvailableGraphs();
     int idx;
@@ -163,7 +187,7 @@ bool Admin::deleteMap(GraphManager& graphManager) {
     graphManager.graphCount--;
     return true;
 }
-
+//图的顶点管理
 void Admin::manageMapVertices(Graph& graph) {
     int choice;
     do {
@@ -225,7 +249,7 @@ void Admin::manageMapVertices(Graph& graph) {
         }
     } while (choice != 0);
 }
-
+//边管理
 void Admin::manageMapEdges(Graph& graph) {
     int choice;
     do {
@@ -260,3 +284,7 @@ void Admin::manageMapEdges(Graph& graph) {
         }
     } while (choice != 0);
 }
+ void Admin::exportUserInfo(AuthManager&auth)
+ {
+     auth.saveUsersToFile();
+ }

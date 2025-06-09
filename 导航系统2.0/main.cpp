@@ -8,7 +8,8 @@
 #include "Admin.h"
 using namespace std;
 
-void displayMainMenu() {
+void displayMainMenu()
+{
     cout << "********** 校园导航系统 **********" << endl;
     cout << "            1. 登录" << endl;
     cout << "            2. 注册" << endl;
@@ -17,7 +18,8 @@ void displayMainMenu() {
     cout << "请选择操作：";
 }
 
-void displayNavigationMenu() {
+void displayNavigationMenu()
+{
     cout << "********** 校园导航系统用户界面 **********" << endl;
     cout << "          1. 切换当前地图" << endl;
     cout << "          2. 显示地图信息" << endl;
@@ -32,40 +34,56 @@ void displayNavigationMenu() {
     cout << "请选择操作：";
 }
 
-int main() {
+int main()
+{
     AuthManager auth;
     User currentUser;
     GraphManager graphManager;
+    DataManager &db = DataManager::getInstance();
+    string path = "user.db";
+    db.connectDB(path);
+   // cout << db.isConnected << '\n';
+    auth.loadUsersFromFile();
 
     int choice;
-    do {
+    do
+    {
         displayMainMenu();
         cin >> choice;
         cin.ignore(); // 清除输入缓冲区
 
-        switch (choice) {
-        case 1: {
-            if (auth.loginUser(currentUser)) {
+        switch (choice)
+        {
+        case 1:
+        {
+            if (auth.loginUser(currentUser))
+            {
                 cout << "\n登录成功！欢迎 " << currentUser.username << endl;
                 system("pause");
                 system("cls");
 
                 // 管理员菜单
-                if (currentUser.isAdmin) {
+                if (currentUser.isAdmin)
+                {
                     Admin::adminMenu(auth, graphManager);
                 }
                 // 普通用户导航菜单
-                else {
+                else
+                {
                     FavoritesManager favoritesManager(currentUser.username);
                     int navChoice;
-                    do {
+                    do
+                    {
                         displayNavigationMenu();
                         cin >> navChoice;
                         cin.ignore(); // 清除输入缓冲区
 
-                        switch (navChoice) {
-                        case 1: {
-                            if (graphManager.getGraphCount() == 0) {
+                        switch (navChoice)
+                        {
+                        case 1:
+                        {
+                            if (graphManager.getGraphCount() == 0)
+                            {
                                 cout << "没有已导入的地图！" << endl;
                                 break;
                             }
@@ -74,61 +92,78 @@ int main() {
                             int graphIndex;
                             cin >> graphIndex;
                             cin.ignore();
-                            if (graphManager.switchGraph(graphIndex)) {
+                            if (graphManager.switchGraph(graphIndex))
+                            {
                                 cout << "切换成功！当前地图为："
-                                    << graphManager.getCurrentGraphName() << endl;
+                                     << graphManager.getCurrentGraphName() << endl;
                             }
-                            else {
+                            else
+                            {
                                 cout << "切换失败，请检查输入编号！" << endl;
                             }
                             break;
                         }
-                        case 2: {
-                            if (graphManager.displayCurrentGraphInfo()) {
+                        case 2:
+                        {
+                            if (graphManager.displayCurrentGraphInfo())
+                            {
                                 cout << "显示成功！" << endl;
                             }
-                            else {
+                            else
+                            {
                                 cout << "没有可用的地图！" << endl;
                             }
                             break;
                         }
-                        case 3: {
-                            if (graphManager.depthFirstTraversal()) {
+                        case 3:
+                        {
+                            if (graphManager.depthFirstTraversal())
+                            {
                                 cout << "深度优先遍历完成！" << endl;
                             }
-                            else {
+                            else
+                            {
                                 cout << "没有可用的地图！" << endl;
                             }
                             break;
                         }
-                        case 4: {
-                            if (graphManager.breadthFirstTraversal()) {
+                        case 4:
+                        {
+                            if (graphManager.breadthFirstTraversal())
+                            {
                                 cout << "广度优先遍历完成！" << endl;
                             }
-                            else {
+                            else
+                            {
                                 cout << "没有可用的地图！" << endl;
                             }
                             break;
                         }
-                        case 5: {
-                            if (!graphManager.isGraphAvailable()) {
+                        case 5:
+                        {
+                            if (!graphManager.isGraphAvailable())
+                            {
                                 cout << "没有可用的地图！" << endl;
                                 break;
                             }
-                            string start, end;
+                            graphManager.depthFirstTraversal();
+                            string start,
+                                end;
                             cout << "请输入起点名称：";
                             getline(cin, start);
                             cout << "请输入终点名称：";
                             getline(cin, end);
 
-                            if (graphManager.findShortestPath(start, end)) {
+                            if (graphManager.findShortestPath(start, end))
+                            {
                                 // 获取最短距离（需要从Graph类中获取，假设findShortestPath已记录距离）
                                 // 这里简化处理，假设通过GraphManager获取距离（实际需修改Graph类返回距离）
                                 cout << "是否保存该路径到常用路径？(y/n)：";
                                 char confirm;
                                 cin >> confirm;
                                 cin.ignore();
-                                if (confirm == 'y' || confirm == 'Y') {
+                                if (confirm == 'y' || confirm == 'Y')
+                                {
                                     // 这里需要获取实际距离，假设在Graph中计算后存储
                                     // 临时使用0代替，需根据实际修改
                                     favoritesManager.saveFavoritePath(
@@ -138,22 +173,27 @@ int main() {
                                     cout << "路径已保存到常用路径！" << endl;
                                 }
                             }
-                            else {
+                            else
+                            {
                                 cout << "路径查找失败，可能节点不存在或不可达！" << endl;
                             }
                             break;
                         }
-                        case 6: {
+                        case 6:
+                        {
                             favoritesManager.displayFavoritePaths();
                             break;
                         }
-                        case 7: {
+                        case 7:
+                        {
                             favoritesManager.clearFavorites();
                             cout << "常用路径已清空！" << endl;
                             break;
                         }
-                        case 8: {
-                            if (!graphManager.isGraphAvailable()) {
+                        case 8:
+                        {
+                            if (!graphManager.isGraphAvailable())
+                            {
                                 cout << "没有可用的地图！" << endl;
                                 break;
                             }
@@ -165,8 +205,7 @@ int main() {
                             cin >> distance;
                             cin.ignore();
 
-                            graphManager.graphs[graphManager.currentIndex].graph
-                                .searchNearbyLocations(location, distance);
+                            graphManager.graphs[graphManager.currentIndex].graph.searchNearbyLocations(location, distance);
                             break;
                         }
                         case 0:
@@ -183,7 +222,8 @@ int main() {
             }
             break;
         }
-        case 2: {
+        case 2:
+        {
             auth.registerUser();
             system("pause");
             system("cls");

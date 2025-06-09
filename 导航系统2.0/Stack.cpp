@@ -1,4 +1,5 @@
 #include "Stack.h"
+#include <stdexcept>
 
 // ¹¹Ôìº¯Êý
 template <typename T>
