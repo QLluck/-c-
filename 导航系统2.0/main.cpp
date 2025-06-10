@@ -8,50 +8,27 @@
 #include "Admin.h"
 using namespace std;
 
-void displayMainMenu()
-{
-    cout << "********** 校园导航系统 **********" << endl;
-    cout << "            1. 登录" << endl;
-    cout << "            2. 注册" << endl;
-    cout << "            0. 退出" << endl;
-    cout << "**********************************" << endl;
-    cout << "请选择操作：";
-}
-
-void displayNavigationMenu()
-{
-    cout << "********** 校园导航系统用户界面 **********" << endl;
-    cout << "          1. 切换当前地图" << endl;
-    cout << "          2. 显示地图信息" << endl;
-    cout << "          3. 深度优先遍历" << endl;
-    cout << "          4. 广度优先遍历" << endl;
-    cout << "          5. 路线导航" << endl;
-    cout << "          6. 查看常用路径" << endl;
-    cout << "          7. 清空常用路径" << endl;
-    cout << "          8. 搜索周边地点" << endl;
-    cout << "          0. 退出系统" << endl;
-    cout << "******************************************" << endl;
-    cout << "请选择操作：";
-}
-
 int main()
 {
     AuthManager auth;
     User currentUser;
     GraphManager graphManager;
+    string filename = "南阳地图.txt";
+    graphManager.importGraph(filename);
+    filename = "南阳理工学院地图.txt";
+    graphManager.importGraph(filename);
+
     DataManager &db = DataManager::getInstance();
     string path = "user.db";
     db.connectDB(path);
-   // cout << db.isConnected << '\n';
+    // cout << db.isConnected << '\n';
     auth.loadUsersFromFile();
-
     int choice;
     do
     {
-        displayMainMenu();
+        graphManager.displayMainMenu();
         cin >> choice;
         cin.ignore(); // 清除输入缓冲区
-
         switch (choice)
         {
         case 1:
@@ -61,7 +38,6 @@ int main()
                 cout << "\n登录成功！欢迎 " << currentUser.username << endl;
                 system("pause");
                 system("cls");
-
                 // 管理员菜单
                 if (currentUser.isAdmin)
                 {
@@ -74,7 +50,7 @@ int main()
                     int navChoice;
                     do
                     {
-                        displayNavigationMenu();
+                        graphManager.displayNavigationMenu();
                         cin >> navChoice;
                         cin.ignore(); // 清除输入缓冲区
 
@@ -147,8 +123,8 @@ int main()
                                 break;
                             }
                             graphManager.depthFirstTraversal();
-                            string start,
-                                end;
+                            cout << endl;
+                            string start, end;
                             cout << "请输入起点名称：";
                             getline(cin, start);
                             cout << "请输入终点名称：";
@@ -156,20 +132,16 @@ int main()
 
                             if (graphManager.findShortestPath(start, end))
                             {
-                                // 获取最短距离（需要从Graph类中获取，假设findShortestPath已记录距离）
-                                // 这里简化处理，假设通过GraphManager获取距离（实际需修改Graph类返回距离）
                                 cout << "是否保存该路径到常用路径？(y/n)：";
                                 char confirm;
                                 cin >> confirm;
                                 cin.ignore();
                                 if (confirm == 'y' || confirm == 'Y')
                                 {
-                                    // 这里需要获取实际距离，假设在Graph中计算后存储
-                                    // 临时使用0代替，需根据实际修改
+
                                     favoritesManager.saveFavoritePath(
                                         graphManager.getCurrentGraphName(),
-                                        start, end, graphManager.shortdistance // 实际应替换为真实距离
-                                    );
+                                        start, end, graphManager.shortestDistance);
                                     cout << "路径已保存到常用路径！" << endl;
                                 }
                             }
@@ -199,7 +171,10 @@ int main()
                             }
                             string location;
                             int distance;
-                            cout << "请输入当前地点名称：";
+                            graphManager.breadthFirstTraversal();
+                            
+                            cout
+                                << "请输入当前地点名称：";
                             getline(cin, location);
                             cout << "请输入搜索距离范围（米）：";
                             cin >> distance;
@@ -230,8 +205,9 @@ int main()
             break;
         }
         }
+        system("pause");
+        system("cls");
     } while (choice != 0);
-
     cout << "感谢使用校园导航系统！" << endl;
     return 0;
 }

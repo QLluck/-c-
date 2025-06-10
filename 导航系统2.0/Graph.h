@@ -56,7 +56,7 @@ public:
     int vertexCount;                       // 顶点数
     int edgeCount;                         // 边数
     bool visited[MAX_VERTEX_NUM];          // 访问标记数组
-    int shortdistance;
+    int shortestDistance; // 保存最短路径的距离
 };
 
 // 图管理类，用于管理多个图
@@ -64,16 +64,20 @@ class GraphManager {
 public:
     GraphManager();
     ~GraphManager();
-    bool importGraph(const string& fileName); // 导入地图数据  
-    bool displayCurrentGraphInfo() const;     // 显示当前地图信息 
-    bool depthFirstTraversal();
-    bool breadthFirstTraversal();
+    bool importGraph(const string& fileName); // 导入地图数据
+    bool displayCurrentGraphInfo() const;     // 显示当前地图信息
+    bool depthFirstTraversal();             //广度优先
+    bool breadthFirstTraversal();          //深度优先
     bool findShortestPath(const string& start, const string& end); // 查找最短路径
     void displayAvailableGraphs() const;      // 显示可用地图
     bool switchGraph(int index);              // 切换地图
     string getCurrentGraphName() const;       // 获取当前地图名称
     bool isGraphAvailable() const;            // 检查是否有可用地图
+    bool saveGraphToFile(int index);  //将图存入文件
     int getGraphCount() const;                // 获取地图数量
+    void displayMainMenu();//登录界面
+    void displayNavigationMenu();//导航界面
+    
 
 public:
     struct GraphInfo {
@@ -83,7 +87,7 @@ public:
     GraphInfo graphs[10]; // 最多存储10个地图
     int graphCount;
     int currentIndex;
-    int shortdistance;
+    int shortestDistance; // 保存最短路径的距离
 };
 
 #endif
