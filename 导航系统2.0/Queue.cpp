@@ -1,6 +1,7 @@
 #include "Queue.h"
 #include <iostream>
-#include <cstdlib> // 用于 exit()
+#include <cstdlib> // 包含 exit()
+#include <stdexcept>
 
 // 构造函数
 Queue::Queue() : frontNode(nullptr), rearNode(nullptr), size(0) {}
@@ -36,7 +37,7 @@ BFSNode Queue::dequeue() {
     frontNode = frontNode->next;
     delete temp;
     if (frontNode == nullptr) {
-        rearNode = nullptr; // 队列空，更新队尾指针
+        rearNode = nullptr; // 队列空，重置队尾指针
     }
     size--;
     return data;
@@ -50,7 +51,7 @@ BFSNode Queue::front() const {
     return frontNode->data;
 }
 
-// 检查队列是否为空
+// 检测队列是否为空
 bool Queue::isEmpty() const {
     return frontNode == nullptr;
 }

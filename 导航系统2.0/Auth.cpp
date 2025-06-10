@@ -1,21 +1,19 @@
 #include "Auth.h"
 #include "dataManager.h"
 #include "sqlite3.h"
-AuthManager::AuthManager()
-{
+AuthManager::AuthManager() {
     loadUsersFromFile();
 }
-
-bool AuthManager::registerUser()
-{
+//用户登录 可改
+bool AuthManager::registerUser() {
     User newUser;
     cout << "注册新用户\n";
     cout << "用户名: ";
     cin >> newUser.username;
 
     // 检查用户名是否已存在
-    DataManager &db = DataManager::getInstance();
-    if (db.queryUser(newUser.username, &newUser)) // 查用户
+    DataManager& db = DataManager::getInstance();
+    if (db.queryUser(newUser.username, &newUser)) //查用户
     {
         cout << "用户名已存在！\n";
         return false;
@@ -23,23 +21,23 @@ bool AuthManager::registerUser()
 
     newUser.password = hashPassword(getHiddenInput("密码: "));
     newUser.isAdmin = false;
-    // users.push_back(newUser);
+   // users.push_back(newUser);
 
-    // saveUsersToFile();
-    if (db.insertUser(newUser.username, newUser.password, newUser.isAdmin))
+   // saveUsersToFile();
+    if(db.insertUser(newUser.username, newUser.password, newUser.isAdmin))
     {
         cout << "注册成功！\n";
         return true;
-    }
+    } 
     else
     {
         cout << "用户插入数据库失败\n";
         return false;
     }
+    
 }
-
-bool AuthManager::loginUser(User &loggedInUser)
-{
+//用户注册可改
+bool AuthManager::loginUser(User& loggedInUser) {
     string username, password;
     cout << "登录\n";
     cout << "用户名: ";
@@ -71,33 +69,29 @@ bool AuthManager::loginUser(User &loggedInUser)
         cout << "查询数据失败!\n";
         return false;
     }
-}
 
-string AuthManager::hashPassword(const string &password)
-{
+  
+}
+//哈希加密 留着
+string AuthManager::hashPassword(const string& password) {
     // 简单哈希示例（实际应使用更安全的算法如SHA-256）
     size_t hash = 0;
-    for (char c : password)
-    {
+    for (char c : password) {
         hash = (hash << 5) + c;
     }
     return to_string(hash);
 }
-
-string AuthManager::getHiddenInput(const string &prompt)
-{
+//用户输入 不变
+string AuthManager::getHiddenInput(const string& prompt) {
     string input;
     cout << prompt;
     char ch;
-    while ((ch = _getch()) != '\r')
-    { // 回车键结束输入
-        if (ch == '\b' && !input.empty())
-        { // 处理退格键
+    while ((ch = _getch()) != '\r') { // 回车键结束输入
+        if (ch == '\b' && !input.empty()) { // 处理退格键
             input.pop_back();
             cout << "\b \b";
         }
-        else if (ch >= 32 && ch <= 126)
-        { // 可打印字符
+        else if (ch >= 32 && ch <= 126) { // 可打印字符
             input.push_back(ch);
             cout << '*';
         }
@@ -105,9 +99,8 @@ string AuthManager::getHiddenInput(const string &prompt)
     cout << endl;
     return input;
 }
-
-void AuthManager::saveUsersToFile()
-{
+//文件流的保存， 功能为将数据库的用户输入到users.dat中
+void AuthManager::saveUsersToFile() {
     ofstream file("users.dat");
 
     DataManager &db = DataManager::getInstance();
@@ -120,25 +113,22 @@ void AuthManager::saveUsersToFile()
         file << user.username << " " << user.password << " " << user.isAdmin << "\n";
     }
 }
-
-void AuthManager::loadUsersFromFile()
-{
+//输出流 可改
+void AuthManager::loadUsersFromFile() {
     ifstream file("users.dat");
-    if (!file)
-        return;
+    if (!file) return;
 
     User user;
     DataManager &db = DataManager::getInstance();
-    while (file >> user.username >> user.password >> user.isAdmin)
-    {
+    while (file >> user.username >> user.password >> user.isAdmin) {
 
-        // cout << user.username << ' ' << user.password << ' ' << user.isAdmin << '\n';
+       // cout << user.username << ' ' << user.password << ' ' << user.isAdmin << '\n';
 
-        if (!db.queryUser(user.username, &user))
+        if(!db.queryUser(user.username,&user ))
         {
-            // cout << "插入" << '\n';
+           // cout << "插入" << '\n';
             db.insertUser(user.username, user.password, user.isAdmin);
         }
-        // cout << "结束\n";
+       // cout << "结束\n";
     }
 }

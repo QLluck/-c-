@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 #include "Graph.h"  // 包含 BFSNode 定义
-#include<stdexcept>
+
 // 非模板队列类（专门处理 BFSNode 类型）
 class Queue {
 private:

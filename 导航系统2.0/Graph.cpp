@@ -30,7 +30,6 @@ Graph::~Graph() {
 
 // 从文件创建图
 bool Graph::createGraph(ifstream& file) {
-    clear();
     // 清空现有图
     for (int i = 0; i < vertexCount; ++i) {
         ArcNode* current = vertexList[i].firstedge;
@@ -42,13 +41,6 @@ bool Graph::createGraph(ifstream& file) {
     }
     vertexCount = 0;
     edgeCount = 0;
-
-    for (int i = 0; i < vertexCount; ++i) {
-        if (!(file >> vertexList[i].data)) { // 添加输入检查
-            clear();
-            return false;
-        }
-    }
 
     // 读取顶点数和边数
     if (!(file >> vertexCount >> edgeCount)) {
@@ -206,10 +198,6 @@ void Graph::DFS(int v) {
 
 //广度优先遍历
 void Graph::BFS(int v) {
-    if (vertexCount == 0) { // 添加空图检查
-        cout << "图为空，无法进行广度优先遍历！" << endl;
-        return;
-    }
     // 重置 visited 数组
     for (int i = 0; i < MAX_VERTEX_NUM; ++i) {
         visited[i] = false;
@@ -221,8 +209,8 @@ void Graph::BFS(int v) {
     }
 
     Queue queue;
-    BFSNode startNode = { v, 0 }; 
-    queue.enqueue(startNode); 
+    BFSNode startNode = { v, 0 }; // 创建 BFSNode 对象
+    queue.enqueue(startNode); // 入队 BFSNode 对象
 
     // 标记访问
     if (v >= 0 && v < vertexCount) {
@@ -235,8 +223,8 @@ void Graph::BFS(int v) {
     }
 
     while (!queue.isEmpty()) {
-        BFSNode currentNode = queue.dequeue(); 
-        int u = currentNode.index; // 获取顶点索
+        BFSNode currentNode = queue.dequeue(); // 获取 BFSNode 对象
+        int u = currentNode.index; // 获取顶点索引
 
         ArcNode* currentArc = vertexList[u].firstedge;
         while (currentArc) {
@@ -337,7 +325,7 @@ void Graph::findShortestPath(int startIdx, int endIdx) {
         if (i != 0) cout << " -> ";
     }
     cout << endl;
-    this->shortestDistance = dist[endIdx]; // 保存最短距离
+    this->shortdistance = dist[endIdx];
 }
 
 // 获取顶点索引
@@ -382,7 +370,7 @@ void Graph::searchNearbyLocations(const string& startName, int maxDistance) cons
         return;
     }
 
-    Queue queue;  
+    Queue queue;  // 使用非模板 Queue（处理 BFSNode 类型）
     bool visited[MAX_VERTEX_NUM] = { false };
 
     queue.enqueue({ startIdx, 0 }); // 入队初始节点
@@ -411,7 +399,6 @@ GraphManager::GraphManager() : graphCount(0), currentIndex(-1) {}
 GraphManager::~GraphManager() {
     for (int i = 0; i < graphCount; ++i) {
         graphs[i].graph.~Graph();
-        operator delete(&(graphs[i].graph));//释放图中内存
     }
 }
 
@@ -512,7 +499,7 @@ bool GraphManager::findShortestPath(const string& start, const string& end) {
     }
 
     currentGraph.findShortestPath(startIdx, endIdx);
-    this->shortestDistance = currentGraph.shortestDistance; // 获取最短距离
+    this->shortdistance = currentGraph.shortdistance;
     return true;
 }
 
@@ -555,63 +542,4 @@ int GraphManager::getGraphCount() const {
 // 检查是否有可用地图
 bool GraphManager::isGraphAvailable() const {
     return currentIndex != -1 && currentIndex < graphCount;
-}
-
-bool GraphManager::saveGraphToFile(int index) {
-    if (index < 0 || index >= graphCount) {
-        return false;
-    }
-
-    ofstream file(graphs[index].name + ".txt");
-    if (!file.is_open()) {
-        return false;
-    }
-
-    // 写入顶点数和边数
-    file << graphs[index].graph.vertexCount << "\n" << graphs[index].graph.edgeCount << "\n";
-
-    // 写入顶点信息
-    for (int i = 0; i < graphs[index].graph.vertexCount; ++i) {
-        file << graphs[index].graph.vertexList[i].data << "\n";
-    }
-
-    // 写入边信息
-    for (int i = 0; i < graphs[index].graph.vertexCount; ++i) {
-        ArcNode* current = graphs[index].graph.vertexList[i].firstedge;
-        while (current) {
-            if (i < current->adjvex) { // 避免重复写入无向图的反向边
-                file << graphs[index].graph.vertexList[i].data << " "
-                    << graphs[index].graph.vertexList[current->adjvex].data << " "
-                    << current->weight << "\n";
-            }
-            current = current->next;
-        }
-    }
-
-    file.close();
-    return true;
-}
-
-void GraphManager::displayMainMenu() {
-    cout << "********** 校园导航系统 **********" << endl;
-    cout << "            1. 登录" << endl;
-    cout << "            2. 注册" << endl;
-    cout << "            0. 退出" << endl;
-    cout << "**********************************" << endl;
-    cout << "请选择操作：";
-}
-
-void GraphManager::displayNavigationMenu() {
-    cout << "********** 校园导航系统用户界面 **********" << endl;
-    cout << "          1. 切换当前地图" << endl;
-    cout << "          2. 显示地图信息" << endl;
-    cout << "          3. 深度优先遍历" << endl;
-    cout << "          4. 广度优先遍历" << endl;
-    cout << "          5. 路线导航" << endl;
-    cout << "          6. 查看常用路径" << endl;
-    cout << "          7. 清空常用路径" << endl;
-    cout << "          8. 搜索周边地点" << endl;
-    cout << "          0. 退出系统" << endl;
-    cout << "******************************************" << endl;
-    cout << "请选择操作：";
 }

@@ -72,3 +72,14 @@ void FavoritesManager::clearFavorites() {
     favoritePaths.clear();
     saveFavoritePathsToFile();
 }
+
+bool FavoritesManager::isPathValid(const Graph& graph) const {
+    // 检查顶点是否存在
+    for (const auto& path : favoritePaths) {
+        if (graph.getVertexIndex(path.start) == -1 ||
+            graph.getVertexIndex(path.end) == -1) {
+            return false;
+        }
+    }
+    return true;
+}
