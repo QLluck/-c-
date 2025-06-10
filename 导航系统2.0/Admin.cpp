@@ -7,55 +7,55 @@
 void Admin::adminMenu(AuthManager& auth, GraphManager& graphManager) {
     int choice;
     do {
-        cout << "\n====== ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ëµï¿½ ======\n";
-        cout << "1. ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½\n";
-        cout << "2. ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½\n";
-        cout << "3. ï¿½ï¿½Ç°ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n";
-        cout << "4. ï¿½ï¿½Ç°ï¿½ï¿½Í¼ï¿½ß¹ï¿½ï¿½ï¿½\n";
-        cout << "0. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½\n";
-        cout << "ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+        cout << "\n====== ¹ÜÀíÔ±²Ëµ¥ ======\n";
+        cout << "1. ÓÃ»§¹ÜÀí\n";
+        cout << "2. µØÍ¼¹ÜÀí\n";
+        cout << "3. µ±Ç°µØÍ¼¶¥µã¹ÜÀí\n";
+        cout << "4. µ±Ç°µØÍ¼±ß¹ÜÀí\n";
+        cout << "0. ·µ»ØÖ÷²Ëµ¥\n";
+        cout << "ÇëÑ¡Ôñ²Ù×÷£º";
         cin >> choice;
         cin.ignore();
 
         switch (choice) {
         case 1:
-            cout << "\n=== ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ ===\n";
-            cout << "1. É¾ï¿½ï¿½ï¿½Ã»ï¿½\n";
-            cout << "2. ï¿½Þ¸ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½\n";
-            cout<<  "3.ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ï¢\n";
-            cout << "0. ï¿½ï¿½ï¿½ï¿½\n";
+            cout << "\n=== ÓÃ»§¹ÜÀí ===\n";
+            cout << "1. É¾³ýÓÃ»§\n";
+            cout << "2. ÐÞ¸ÄÓÃ»§ÃÜÂë\n";
+            cout << "3. µ¼³öÓÃ»§ÐÅÏ¢\n";
+            cout << "0. ·µ»Ø\n";
             cin >> choice;
             if (choice == 1) deleteUser(auth);
             else if (choice == 2) modifyUser(auth);
             else if (choice == 3) exportUserInfo(auth);
             break;
         case 2:
-            cout << "\n=== ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ ===\n";
-            cout << "1. ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä¼ï¿½\n";
-            cout << "2. ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Í¼\n";
-            cout << "3. É¾ï¿½ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½Í¼\n";
-            cout << "4. ï¿½Ð»ï¿½ï¿½ï¿½Í¼\n";
-            cout << "0. ï¿½ï¿½ï¿½ï¿½\n";
+            cout << "\n=== µØÍ¼¹ÜÀí ===\n";
+            cout << "1. µ¼ÈëµØÍ¼ÎÄ¼þ\n";
+            cout << "2. ´´½¨ÐÂµØÍ¼\n";
+            cout << "3. É¾³ýÏÖÓÐµØÍ¼\n";
+            cout << "4. ÇÐ»»µØÍ¼\n";
+            cout << "0. ·µ»Ø\n";
             cin >> choice;
-            cin.ignore(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë»ºï¿½ï¿½ï¿½ï¿½
+            cin.ignore(); // Çå³ýÊäÈë»º³åÇø
             if (choice == 1) {
                 string filename;
-                cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+                cout << "ÇëÊäÈëµØÍ¼ÎÄ¼þÃû£¨°üº¬ÎÄ¼þÀ©Õ¹Ãû£©£º";
                 getline(cin, filename);
                 if (graphManager.importGraph(filename)) {
-                    cout << "ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½" << endl;
+                    cout << "µØÍ¼µ¼Èë³É¹¦£¡" << endl;
                 }
                 else {
-                    cout << "ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Í¸ï¿½Ê½ï¿½ï¿½" << endl;
+                    cout << "µØÍ¼µ¼ÈëÊ§°Ü£¬Çë¼ì²éÎÄ¼þÃû»ò¸ñÊ½£¡" << endl;
                 }
                 
             }
             else if (choice == 2) {              
                 if (createNewMap(graphManager)) {
-                    cout << "ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½ë£¡" << endl;
+                    cout << "µØÍ¼´´½¨²¢µ¼Èë³É¹¦£¡" << endl;
                 }
                 else {
-                    cout << "ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü»ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½" << endl;
+                    cout << "µØÍ¼´´½¨»òµ¼ÈëÊ§°Ü£¡" << endl;
                 }
             }
             else if (choice == 3) {
@@ -64,7 +64,7 @@ void Admin::adminMenu(AuthManager& auth, GraphManager& graphManager) {
             else if (choice == 4) {
                 graphManager.displayAvailableGraphs();
                 int idx;
-                cout << "Ñ¡ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+                cout << "Ñ¡ÔñµØÍ¼±àºÅ£º";
                 cin >> idx;
                 graphManager.switchGraph(idx);
             }
@@ -82,86 +82,74 @@ void Admin::adminMenu(AuthManager& auth, GraphManager& graphManager) {
         }
     } while (choice != 0);
 }
-//É¾ï¿½ï¿½ï¿½É¸ï¿½
+
 void Admin::deleteUser(AuthManager& auth) {
-    // Ô­ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½
     string username;
-    cout << "ï¿½ï¿½ï¿½ï¿½??ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?";
+    cout << "ÇëÊäÈëÒªÉ¾³ýµÄÓÃ»§Ãû£º";
     cin >> username;
-   // auto& users = auth.users;
     DataManager &db = DataManager::getInstance();
 
-    // for (auto it = users.begin(); it != users.end(); ++it) {
     User user;
     if(db.queryUser(username, &user))
     {
-    if (  !user.isAdmin)
-    {
-        //users.erase(it);
-        //auth.saveUsersToFile();
-        if(db.deleteUser(username))
-        cout << "ï¿½Ã»ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½\n";
-        else
-            cout << "É¾ï¿½ï¿½Ê§ï¿½ï¿½:ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½\n";
-        return;
-        // }
+        if (!user.isAdmin)
+        {
+            if(db.deleteUser(username))
+                cout << "ÓÃ»§ÒÑÉ¾³ý£¡\n";
+            else
+                cout << "É¾³ýÊ§°Ü£ºÊý¾Ý¿â´íÎó\n";
+            return;
+        }
     }
+    cout << "ÓÃ»§²»´æÔÚ»ò²»ÄÜÉ¾³ý¹ÜÀíÔ±£¡\n";
 }
-    cout << "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½\n";
-}
-//ï¿½Þ¸ï¿½ ï¿½É¸ï¿½
+
 void Admin::modifyUser(AuthManager& auth) {
-    // Ô­ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½
     string username;
-    cout << "ï¿½ï¿½ï¿½ï¿½?ï¿½???ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+    cout << "ÇëÊäÈëÒªÐÞ¸ÄµÄÓÃ»§Ãû£º";
     cin >> username;
     DataManager & db = DataManager::getInstance();
     User user; 
-    //   for (auto& user : auth.users) {
     if(db.queryUser(username, &user)) 
     {
-
-    if ( !user.isAdmin)
-    {
-        string newPassword = auth.getHiddenInput("ï¿½ï¿½ï¿½ï¿½ï¿½ë£º");
-        string passwordHash = auth.hashPassword(newPassword);
-        string password = "password";
-        if (db.updateUser(username, password, passwordHash))
-            // auth.saveUsersToFile();
-      
-            cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¸ï¿½ï¿½Â£ï¿½\n";
-        else
-            cout << "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½\n";
-        return;
-        //    }
+        if (!user.isAdmin)
+        {
+            string newPassword = auth.getHiddenInput("ÐÂÃÜÂë£º");
+            string passwordHash = auth.hashPassword(newPassword);
+            string password = "password";
+            if (db.updateUser(username, password, passwordHash))
+                cout << "ÃÜÂëÒÑ¸ü¸Ä£¡\n";
+            else
+                cout << "¸üÐÂÊ§°Ü\n";
+            return;
+        }
     }
+    cout << "ÓÃ»§²»´æÔÚ»ò²»ÄÜÐÞ¸Ä¹ÜÀíÔ±£¡\n";
 }
-    cout << "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½ï¿½Þ¸Ä¹ï¿½ï¿½ï¿½Ô±ï¿½ï¿½\n";
-}
-//ï¿½ï¿½ï¿½ï¿½ ï¿½É¸ï¿½
+
 bool Admin::createNewMap(GraphManager& graphManager) {
     string mapName;
-    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½??ï¿½ï¿½ï¿½??ï¿½?";
+    cout << "ÇëÊäÈëµØÍ¼Ãû³Æ£º";
     getline(cin, mapName);
     string filename = mapName + ".txt";
     ofstream file(filename);
     if (!file) return false;
 
     int vertexCount, edgeCount;
-    cout << "ï¿½ï¿½ï¿½??ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+    cout << "ÊäÈë¶¥µãÊýÁ¿£º";
     cin >> vertexCount;
-    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?";
+    cout << "ÊäÈë±ßµÄÊýÁ¿£º";
     cin >> edgeCount;
     file << vertexCount << "\n" << edgeCount << "\n";
 
-    cout << "ï¿½ï¿½ï¿½ï¿½" << vertexCount << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½\n";
+    cout << "ÊäÈë" << vertexCount << "¸ö¶¥µãÃû³Æ£º\n";
     for (int i = 0; i < vertexCount; i++) {
         string vertex;
         cin >> vertex;
         file << vertex << "\n";
     }
 
-    cout << "ï¿½ï¿½ï¿½ï¿½" << edgeCount << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õµï¿½ ï¿½ï¿½ï¿½ë£©ï¿½ï¿½\n";
+    cout << "ÊäÈë" << edgeCount << "Ìõ±ßÐÅÏ¢£¨Æðµã ÖÕµã È¨ÖØ£©£º\n";
     for (int i = 0; i < edgeCount; i++) {
         string start, end;
         int weight;
@@ -172,11 +160,11 @@ bool Admin::createNewMap(GraphManager& graphManager) {
     file.close();
     return graphManager.importGraph(filename);
 }
-//É¾ï¿½ï¿½ ï¿½É¸ï¿½
+
 bool Admin::deleteMap(GraphManager& graphManager) {
     graphManager.displayAvailableGraphs();
     int idx;
-    cout << "?ï¿½ï¿½??ï¿½ï¿½ï¿½??ï¿½??ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+    cout << "ÇëÊäÈëÒªÉ¾³ýµÄµØÍ¼±àºÅ£º";
     cin >> idx;
     if (idx < 1 || idx > graphManager.getGraphCount()) return false;
 
@@ -187,15 +175,15 @@ bool Admin::deleteMap(GraphManager& graphManager) {
     graphManager.graphCount--;
     return true;
 }
-//Í¼ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
 void Admin::manageMapVertices(Graph& graph) {
     int choice;
     do {
-        cout << "\n=== ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ===\n";
-        cout << "1. ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½\n";
-        cout << "2. É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n";
-        cout << "3. ï¿½Þ¸Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n";
-        cout << "0. ï¿½ï¿½ï¿½ï¿½\n";
+        cout << "\n=== ¶¥µã¹ÜÀí ===\n";
+        cout << "1. Ìí¼Ó¶¥µã\n";
+        cout << "2. É¾³ý¶¥µã\n";
+        cout << "3. ÐÞ¸Ä¶¥µãÃû³Æ\n";
+        cout << "0. ·µ»Ø\n";
         cin >> choice;
         cin.ignore();
 
@@ -203,7 +191,7 @@ void Admin::manageMapVertices(Graph& graph) {
         int index;
         switch (choice) {
         case 1:
-            cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½?";
+            cout << "ÇëÊäÈë¶¥µãÃû³Æ£º";
             getline(cin, name);
             if (graph.getVertexIndex(name) == -1) {
                 graph.vertexList[graph.vertexCount].data = name;
@@ -211,11 +199,11 @@ void Admin::manageMapVertices(Graph& graph) {
             }
             break;
         case 2:
-            cout << "ï¿½ï¿½ï¿½ï¿½??ï¿½ï¿½ï¿½??ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½?";
+            cout << "ÇëÊäÈëÒªÉ¾³ýµÄ¶¥µãÃû³Æ£º";
             getline(cin, name);
             index = graph.getVertexIndex(name);
             if (index != -1) {
-                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½
+                // É¾³ýÏà¹ØµÄ±ß
                 for (int i = 0; i < graph.vertexCount; i++) {
                     ArcNode* current = graph.vertexList[i].firstedge;
                     ArcNode* prev = nullptr;
@@ -233,10 +221,10 @@ void Admin::manageMapVertices(Graph& graph) {
                         }
                     }
                 }
-                // ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                // ÒÆ¶¯¶¥µãÊý×é
                 for (int i = index; i < graph.vertexCount - 1; i++) {
                     graph.vertexList[i] = graph.vertexList[i + 1];
-                    // ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ó±ï¿½ï¿½ÐµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    // ¸üÐÂ±ß±íÖÐµÄ¶¥µãË÷Òý
                     ArcNode* current = graph.vertexList[i].firstedge;
                     while (current) {
                         if (current->adjvex > index) current->adjvex--;
@@ -249,16 +237,16 @@ void Admin::manageMapVertices(Graph& graph) {
         }
     } while (choice != 0);
 }
-//ï¿½ß¹ï¿½ï¿½ï¿½
+
 void Admin::manageMapEdges(Graph& graph) {
     int choice;
     do {
-        cout << "\n=== ï¿½ß¹ï¿½ï¿½ï¿½ ===\n";
-        cout << "1. ï¿½ï¿½ï¿½Ó±ï¿½\n";
-        cout << "2. É¾ï¿½ï¿½ï¿½ß£ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½\n";
-        cout << "3. ï¿½Þ¸Ä±ï¿½È¨Öµ\n";
-        cout << "4. É¾ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½\n";
-        cout << "0. ï¿½ï¿½ï¿½ï¿½\n";
+        cout << "\n=== ±ß¹ÜÀí ===\n";
+        cout << "1. Ìí¼Ó±ß\n";
+        cout << "2. É¾³ý±ß£¨Ö¸¶¨ÆðÖÕµã£©\n";
+        cout << "3. ÐÞ¸Ä±ßÈ¨Öµ\n";
+        cout << "4. É¾³ýÁ½µã¼äËùÓÐÂ·¾¶\n";
+        cout << "0. ·µ»Ø\n";
         cin >> choice;
         cin.ignore();
 
@@ -266,25 +254,22 @@ void Admin::manageMapEdges(Graph& graph) {
         int startIdx, endIdx;
         switch (choice) {
         case 4:
-            cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã£º";
+            cout << "Æðµã£º";
             getline(cin, start);
-            cout << "ï¿½ï¿½ï¿½ï¿½ï¿½???";
+            cout << "ÖÕµã£º";
             getline(cin, end);
             startIdx = graph.getVertexIndex(start);
             endIdx = graph.getVertexIndex(end);
             if (startIdx == -1 || endIdx == -1) {
-                cout << "ï¿½ï¿½ï¿½ã²»ï¿½ï¿½ï¿½Ú£ï¿½\n";
+                cout << "¶¥µã²»´æÔÚ£¡\n";
                 break;
             }
-            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½
-            int path[MAX_VERTEX_NUM], count = 0;
-            // ï¿½ò»¯µï¿½Â·ï¿½ï¿½ï¿½ï¿½È¡ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½DijkstraÊµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
-            // É¾ï¿½ï¿½Â·ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ð±ï¿½
             break;
         }
     } while (choice != 0);
 }
- void Admin::exportUserInfo(AuthManager&auth)
- {
-     auth.saveUsersToFile();
- }
+
+void Admin::exportUserInfo(AuthManager& auth)
+{
+    auth.saveUsersToFile();
+}
