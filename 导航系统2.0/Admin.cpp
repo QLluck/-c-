@@ -13,7 +13,7 @@ void Admin::adminMenu(AuthManager& auth, GraphManager& graphManager) {
         cout << "3. ��ǰ��ͼ�������\n";
         cout << "4. ��ǰ��ͼ�߹���\n";
         cout << "0. �������˵�\n";
-        cout << "��ѡ�������?";
+        cout << "��ѡ�������";
         cin >> choice;
         cin.ignore();
 
@@ -37,13 +37,13 @@ void Admin::adminMenu(AuthManager& auth, GraphManager& graphManager) {
             cout << "4. �л���ͼ\n";
             cout << "0. ����\n";
             cin >> choice;
-            cin.ignore(); // ������뻺����?
+            cin.ignore(); // ������뻺����
             if (choice == 1) {
                 string filename;
-                cout << "�����ͼ�ļ�����������չ������?";
+                cout << "�����ͼ�ļ�����������չ������";
                 getline(cin, filename);
                 if (graphManager.importGraph(filename)) {
-                    cout << "��ͼ����ɹ���?" << endl;
+                    cout << "��ͼ����ɹ���" << endl;
                 }
                 else {
                     cout << "��ͼ����ʧ�ܣ������ļ����͸�ʽ��" << endl;
@@ -64,7 +64,7 @@ void Admin::adminMenu(AuthManager& auth, GraphManager& graphManager) {
             else if (choice == 4) {
                 graphManager.displayAvailableGraphs();
                 int idx;
-                cout << "ѡ���ͼ������?";
+                cout << "ѡ���ͼ������";
                 cin >> idx;
                 graphManager.switchGraph(idx);
             }
@@ -86,7 +86,7 @@ void Admin::adminMenu(AuthManager& auth, GraphManager& graphManager) {
 void Admin::deleteUser(AuthManager& auth) {
     // ԭ���߼�����
     string username;
-    cout << "����??�����������?";
+    cout << "����??�����������?";
     cin >> username;
    // auto& users = auth.users;
     DataManager &db = DataManager::getInstance();
@@ -113,7 +113,7 @@ void Admin::deleteUser(AuthManager& auth) {
 void Admin::modifyUser(AuthManager& auth) {
     // ԭ���߼�����
     string username;
-    cout << "����?�???��������";
+    cout << "����?�???��������";
     cin >> username;
     DataManager & db = DataManager::getInstance();
     User user; 
@@ -141,16 +141,16 @@ void Admin::modifyUser(AuthManager& auth) {
 //���� �ɸ�
 bool Admin::createNewMap(GraphManager& graphManager) {
     string mapName;
-    cout << "�������??���??�?";
+    cout << "�������??���??�?";
     getline(cin, mapName);
     string filename = mapName + ".txt";
     ofstream file(filename);
     if (!file) return false;
 
     int vertexCount, edgeCount;
-    cout << "���??������";
+    cout << "���??������";
     cin >> vertexCount;
-    cout << "���������?";
+    cout << "���������?";
     cin >> edgeCount;
     file << vertexCount << "\n" << edgeCount << "\n";
 
@@ -161,7 +161,7 @@ bool Admin::createNewMap(GraphManager& graphManager) {
         file << vertex << "\n";
     }
 
-    cout << "����" << edgeCount << "������Ϣ�����? �յ� ���룩��\n";
+    cout << "����" << edgeCount << "������Ϣ����� �յ� ���룩��\n";
     for (int i = 0; i < edgeCount; i++) {
         string start, end;
         int weight;
@@ -176,7 +176,7 @@ bool Admin::createNewMap(GraphManager& graphManager) {
 bool Admin::deleteMap(GraphManager& graphManager) {
     graphManager.displayAvailableGraphs();
     int idx;
-    cout << "?��??���??�??������";
+    cout << "?��??���??�??������";
     cin >> idx;
     if (idx < 1 || idx > graphManager.getGraphCount()) return false;
 
@@ -187,14 +187,14 @@ bool Admin::deleteMap(GraphManager& graphManager) {
     graphManager.graphCount--;
     return true;
 }
-//ͼ�Ķ������?
+//ͼ�Ķ������
 void Admin::manageMapVertices(Graph& graph) {
     int choice;
     do {
-        cout << "\n=== �������? ===\n";
-        cout << "1. ���??���\n";
-        cout << "2. ?������\n";
-        cout << "3. �???�������\n";
+        cout << "\n=== ������� ===\n";
+        cout << "1. ���Ӷ���\n";
+        cout << "2. ɾ������\n";
+        cout << "3. �޸Ķ�������\n";
         cout << "0. ����\n";
         cin >> choice;
         cin.ignore();
@@ -203,7 +203,7 @@ void Admin::manageMapVertices(Graph& graph) {
         int index;
         switch (choice) {
         case 1:
-            cout << "������������?�?";
+            cout << "������������?�?";
             getline(cin, name);
             if (graph.getVertexIndex(name) == -1) {
                 graph.vertexList[graph.vertexCount].data = name;
@@ -211,11 +211,11 @@ void Admin::manageMapVertices(Graph& graph) {
             }
             break;
         case 2:
-            cout << "����??���??������?�?";
+            cout << "����??���??������?�?";
             getline(cin, name);
             index = graph.getVertexIndex(name);
             if (index != -1) {
-                // ����������ر�?
+                // ����������ر�
                 for (int i = 0; i < graph.vertexCount; i++) {
                     ArcNode* current = graph.vertexList[i].firstedge;
                     ArcNode* prev = nullptr;
@@ -266,9 +266,9 @@ void Admin::manageMapEdges(Graph& graph) {
         int startIdx, endIdx;
         switch (choice) {
         case 4:
-            cout << "�������?";
+            cout << "������㣺";
             getline(cin, start);
-            cout << "�����???";
+            cout << "�����???";
             getline(cin, end);
             startIdx = graph.getVertexIndex(start);
             endIdx = graph.getVertexIndex(end);
@@ -276,7 +276,7 @@ void Admin::manageMapEdges(Graph& graph) {
                 cout << "���㲻���ڣ�\n";
                 break;
             }
-            // �������·����ɾ����?
+            // �������·����ɾ����
             int path[MAX_VERTEX_NUM], count = 0;
             // �򻯵�·����ȡ�߼��������ʵ��Dijkstraʵ�ֵ�����
             // ɾ��·���ϵ����б�
