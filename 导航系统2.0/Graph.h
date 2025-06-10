@@ -56,6 +56,7 @@ public:
     int vertexCount;                       // 顶点数
     int edgeCount;                         // 边数
     bool visited[MAX_VERTEX_NUM];          // 访问标记数组
+    int shortdistance;
 };
 
 // 图管理类，用于管理多个图
@@ -82,6 +83,7 @@ public:
     GraphInfo graphs[10]; // 最多存储10个地图
     int graphCount;
     int currentIndex;
+    int shortdistance;
 };
 
 #endif

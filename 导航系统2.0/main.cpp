@@ -168,7 +168,7 @@ int main()
                                     // 临时使用0代替，需根据实际修改
                                     favoritesManager.saveFavoritePath(
                                         graphManager.getCurrentGraphName(),
-                                        start, end, 0 // 实际应替换为真实距离
+                                        start, end, graphManager.shortdistance // 实际应替换为真实距离
                                     );
                                     cout << "路径已保存到常用路径！" << endl;
                                 }

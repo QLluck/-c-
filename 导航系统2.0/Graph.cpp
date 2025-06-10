@@ -325,6 +325,7 @@ void Graph::findShortestPath(int startIdx, int endIdx) {
         if (i != 0) cout << " -> ";
     }
     cout << endl;
+    this->shortdistance = dist[endIdx];
 }
 
 // 获取顶点索引
@@ -498,6 +499,7 @@ bool GraphManager::findShortestPath(const string& start, const string& end) {
     }
 
     currentGraph.findShortestPath(startIdx, endIdx);
+    this->shortdistance = currentGraph.shortdistance;
     return true;
 }
 
