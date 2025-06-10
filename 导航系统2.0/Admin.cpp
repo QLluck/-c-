@@ -10,13 +10,13 @@ void Admin::adminMenu(AuthManager &auth, GraphManager &graphManager)
     int choice;
     do
     {
-        cout << "\n====== ¹ÜÀíÔ±²Ëµ¥ ======\n";
-        cout << "1. ÓÃ»§¹ÜÀí\n";
-        cout << "2. µØÍ¼¹ÜÀí\n";
-        cout << "3. µ±Ç°µØÍ¼¶¥µã¹ÜÀí\n";
-        cout << "4. µ±Ç°µØÍ¼±ß¹ÜÀí\n";
-        cout << "0. ÍË³öµÇÂ¼\n";
-        cout << "ÇëÑ¡Ôñ²Ù×÷£º";
+        cout << "\n====== ?? ======\n";
+        cout << "1. û\n";
+        cout << "2. ?\n";
+        cout << "3. ??\n";
+        cout << "4. ???\n";
+        cout << "0. ?¼\n";
+        cout << "?";
         cin >> choice;
         cin.ignore();
         system("cls");
@@ -25,11 +25,11 @@ void Admin::adminMenu(AuthManager &auth, GraphManager &graphManager)
         switch (choice)
         {
         case 1:
-            cout << "\n=== ÓÃ»§¹ÜÀí ===\n";
-            cout << "1. É¾³ıÓÃ»§\n";
-            cout << "2. ĞŞ¸ÄÓÃ»§ÃÜÂë\n";
-            cout << "3.µ¼³öÓÃ»§ĞÅÏ¢\n";
-            cout << "0. ·µ»Ø\n";
+            cout << "\n=== û ===\n";
+            cout << "1. ?û\n";
+            cout << "2. ?û\n";
+            cout << "3.û?\n";
+            cout << "0. \n";
 
             cin >> choose;
             if (choose == 1)
@@ -42,38 +42,38 @@ void Admin::adminMenu(AuthManager &auth, GraphManager &graphManager)
         case 2:
             do
             {
-                cout << "\n=== µØÍ¼¹ÜÀí ===\n";
-                cout << "1. µ¼ÈëµØÍ¼ÎÄ¼ş\n";
-                cout << "2. ´´½¨ĞÂµØÍ¼\n";
-                cout << "3. É¾³ıÒÑµ¼ÈëµØÍ¼\n";
-                cout << "4. ÇĞ»»µØÍ¼\n";
-                cout << "5.²é¿´µ±Ç°µØÍ¼ĞÅÏ¢\n";
-                cout << "0. ·µ»Ø\n";
+                cout << "\n=== ? ===\n";
+                cout << "1. ??\n";
+                cout << "2. µ?\n";
+                cout << "3. ???\n";
+                cout << "4. ??\n";
+                cout << "5.????\n";
+                cout << "0. \n";
                 cin >> choose;
-                cin.ignore(); // Çå³ıÊäÈë»º³åÇø
+                cin.ignore(); // ?
                 if (choose == 1)
                 {
                     string filename;
-                    cout << "ÊäÈëµØÍ¼ÎÄ¼şÃû£¨°üÀ¨À©Õ¹Ãû£©£º";
+                    cout << "???";
                     getline(cin, filename);
                     if (graphManager.importGraph(filename))
                     {
-                        cout << "µØÍ¼µ¼Èë³É¹¦£¡" << endl;
+                        cout << "??" << endl;
                     }
                     else
                     {
-                        cout << "µØÍ¼µ¼ÈëÊ§°Ü£¬Çë¼ì²éÎÄ¼şÃûºÍ¸ñÊ½£¡" << endl;
+                        cout << "??????" << endl;
                     }
                 }
                 else if (choose == 2)
                 {
                     if (createNewMap(graphManager))
                     {
-                        cout << "µØÍ¼´´½¨³É¹¦£¬ÒÑ³É¹¦µ¼Èë£¡" << endl;
+                        cout << "?????" << endl;
                     }
                     else
                     {
-                        cout << "µØÍ¼´´½¨Ê§°Ü»òµ¼ÈëÊ§°Ü£¡" << endl;
+                        cout << "?????" << endl;
                     }
                 }
                 else if (choose == 3)
@@ -84,7 +84,7 @@ void Admin::adminMenu(AuthManager &auth, GraphManager &graphManager)
                 {
                     graphManager.displayAvailableGraphs();
                     int idx;
-                    cout << "Ñ¡ÔñµØÍ¼Ë÷Òı£º";
+                    cout << "??";
                     cin >> idx;
                     graphManager.switchGraph(idx);
                 }
@@ -120,9 +120,9 @@ void Admin::adminMenu(AuthManager &auth, GraphManager &graphManager)
 
 void Admin::deleteUser(AuthManager &auth)
 {
-    // Ô­ÓĞÂß¼­²»±ä
+    // ??
     string username;
-    cout << "ÊäÈëÒªÉ¾³ıµÄÓÃ»§Ãû£º";
+    cout << "??û";
     cin >> username;
     // auto& users = auth.users;
     DataManager &db = DataManager::getInstance();
@@ -136,21 +136,21 @@ void Admin::deleteUser(AuthManager &auth)
             // users.erase(it);
             // auth.saveUsersToFile();
             if (db.deleteUser(username))
-                cout << "ÓÃ»§ÒÑÉ¾³ı£¡\n";
+                cout << "û?\n";
             else
-                cout << "É¾³ıÊ§°Ü:Êı¾İ¿â´íÎó\n";
+                cout << "??:?\n";
             return;
             // }
         }
     }
-    cout << "ÓÃ»§²»´æÔÚ»ò²»ÄÜÉ¾³ı¹ÜÀíÔ±£¡\n";
+    cout << "û???\n";
 }
 
 void Admin::modifyUser(AuthManager &auth)
 {
-    // Ô­ÓĞÂß¼­²»±ä
+    // ??
     string username;
-    cout << "ÊäÈëÒªĞŞ¸ÄµÄÓÃ»§Ãû£º";
+    cout << "???û";
     cin >> username;
     DataManager &db = DataManager::getInstance();
     User user;
@@ -160,26 +160,26 @@ void Admin::modifyUser(AuthManager &auth)
 
         if (!user.isAdmin)
         {
-            string newPassword = auth.getHiddenInput("ĞÂÃÜÂë£º");
+            string newPassword = auth.getHiddenInput("?");
             string passwordHash = auth.hashPassword(newPassword);
             string password = "password";
             if (db.updateUser(username, password, passwordHash))
                 // auth.saveUsersToFile();
 
-                cout << "ÃÜÂëÒÑ¸üĞÂ£¡\n";
+                cout << "?£\n";
             else
-                cout << "¸üĞÂÊ§°Ü\n";
+                cout << "?\n";
             return;
             //    }
         }
     }
-    cout << "ÓÃ»§²»´æÔÚ»ò²»ÄÜĞŞ¸Ä¹ÜÀíÔ±£¡\n";
+    cout << "û????\n";
 }
 
 bool Admin::createNewMap(GraphManager &graphManager)
 {
     string mapName;
-    cout << "ÊäÈëĞÂµØÍ¼Ãû³Æ£º";
+    cout << "µ??";
     getline(cin, mapName);
     string filename = mapName + ".txt";
     ofstream file(filename);
@@ -187,26 +187,26 @@ bool Admin::createNewMap(GraphManager &graphManager)
         return false;
 
     int vertexCount, edgeCount;
-    cout << "ÊäÈë¶¥µãÊı£º";
+    cout << "?";
     cin >> vertexCount;
-    cout << "ÊäÈë±ßÊı£º";
+    cout << "";
     cin >> edgeCount;
     file << vertexCount << "\n"
          << edgeCount << "\n";
 
-    cout << "ÊäÈë" << vertexCount << "¸ö¶¥µãÃû³Æ£º\n";
-    string *vList = new string[vertexCount]; // ÔİÊ±´æ´¢¶¥µãÓÃÀ´²éÖØ
+    cout << "" << vertexCount << "?\n";
+    string *vList = new string[vertexCount]; // ??
     for (int i = 0; i < vertexCount; i++)
     {
         string vertex;
         cin >> vertex;
-        // ²éÖØ
+        // 
         vList[i] = vertex;
         for (int j = 0; j < i; j++)
         {
             if (vList[j] == vertex)
             {
-                cout << "¶¥µãÃû³ÆÖØ¸´£¬ÇëÖØĞÂÊäÈë£º";
+                cout << "??";
                 i--;
                 continue;
             }
@@ -215,7 +215,7 @@ bool Admin::createNewMap(GraphManager &graphManager)
     }
     delete[] vList;
 
-    cout << "ÊäÈë" << edgeCount << "Ìõ±ßĞÅÏ¢£¨Æğµã ÖÕµã ¾àÀë£©£º\n";
+    cout << "" << edgeCount << "? ? ?\n";
     for (int i = 0; i < edgeCount; i++)
     {
         string start, end;
@@ -232,7 +232,7 @@ bool Admin::deleteMap(GraphManager &graphManager)
 {
     graphManager.displayAvailableGraphs();
     int idx;
-    cout << "Ñ¡ÔñÒªÉ¾³ıµÄµØÍ¼Ë÷Òı£º";
+    cout << "?????";
     cin >> idx;
     if (idx < 1 || idx > graphManager.getGraphCount())
         return false;
@@ -251,11 +251,11 @@ void Admin::manageMapVertices(Graph &graph, GraphManager &graphManager)
     int choice;
     do
     {
-        cout << "\n=== ¶¥µã¹ÜÀí ===\n";
-        cout << "1. Ìí¼Ó¶¥µã\n";
-        cout << "2. É¾³ı¶¥µã\n";
-        cout << "3. ĞŞ¸Ä¶¥µãÃû³Æ\n";
-        cout << "0. ·µ»Ø\n";
+        cout << "\n===  ===\n";
+        cout << "1. ?\n";
+        cout << "2. ?\n";
+        cout << "3. ??\n";
+        cout << "0. \n";
         cin >> choice;
         cin.ignore();
 
@@ -264,24 +264,24 @@ void Admin::manageMapVertices(Graph &graph, GraphManager &graphManager)
         switch (choice)
         {
         case 1:
-            cout << "ÊäÈëĞÂ¶¥µãÃû³Æ£º";
+            cout << "¶?";
             getline(cin, name);
             if (graph.getVertexIndex(name) == -1)
             {
                 graph.vertexList[graph.vertexCount].data = name;
                 graph.vertexCount++;
-                // ±£´æµ½ÎÄ¼ş
+                // ??
                 graphManager.saveGraphToFile(graphManager.currentIndex);
-                cout << "¶¥µãÌí¼Ó³É¹¦£¡" << endl;
+                cout << "??" << endl;
             }
             break;
         case 2:
-            cout << "ÊäÈëÒªÉ¾³ıµÄ¶¥µãÃû³Æ£º";
+            cout << "????";
             getline(cin, name);
             index = graph.getVertexIndex(name);
             if (index != -1)
             {
-                // ÇåÀíËùÓĞÏà¹Ø±ß==
+                // ?==
                 for (int i = 0; i < graph.vertexCount; i++)
                 {
                     ArcNode *current = graph.vertexList[i].firstedge;
@@ -305,7 +305,7 @@ void Admin::manageMapVertices(Graph &graph, GraphManager &graphManager)
                         }
                     }
                 }
-                // ¸üĞÂËùÓĞÁÚ½Ó±íÖĞµÄ¶¥µãË÷Òı
+                // ????
                 for (int i = 0; i < graph.vertexCount; i++)
                 {
                     ArcNode *current = graph.vertexList[i].firstedge;
@@ -319,29 +319,29 @@ void Admin::manageMapVertices(Graph &graph, GraphManager &graphManager)
                     }
                 }
 
-                // ÒÆ¶¯ºóĞø¶¥µã
+                // ?
                 for (int i = index; i < graph.vertexCount - 1; i++)
                 {
                     graph.vertexList[i] = graph.vertexList[i + 1];
                 }
                 graph.vertexCount--;
-                // ±£´æµ½ÎÄ¼ş
+                // ??
                 graphManager.saveGraphToFile(graphManager.currentIndex);
-                cout << "¶¥µãÉ¾³ı³É¹¦£¡" << endl;
+                cout << "??" << endl;
             }
             break;
         case 3:
-            cout << "ÊäÈëÒªĞŞ¸ÄµÄ¶¥µãÃû³Æ£º";
+            cout << "?????";
             getline(cin, name);
             index = graph.getVertexIndex(name);
             if (index != -1)
             {
                 string newName;
-                cout << "ÊäÈëĞÂµÄ¶¥µãÃû³Æ£º";
+                cout << "µ??";
                 getline(cin, newName);
-                graph.vertexList[index].data = newName; // ½ö¸üĞÂÃû³Æ£¬ÎŞĞèĞŞ¸Ä±ß
-                cout << "¶¥µãÃû³ÆÒÑĞŞ¸Ä£¡" << endl;
-                // ±£´æµ½ÎÄ¼ş
+                graph.vertexList[index].data = newName; // ???
+                cout << "??" << endl;
+                // ??
                 graphManager.saveGraphToFile(graphManager.currentIndex);
             }
             break;
@@ -356,13 +356,13 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
     int choice;
     do
     {
-        cout << "\n=== ±ß¹ÜÀí ===\n";
-        cout << "1. Ìí¼Ó±ß\n";
-        cout << "2. É¾³ı±ß£¨Ö¸¶¨¶¥µã¶Ô£©\n";
-        cout << "3. ĞŞ¸Ä±ßÈ¨Öµ\n";
-        cout << "4. É¾³ıÁ½µã¼ä×î¶ÌÂ·¾¶ËùÓĞ±ß\n";
-        cout << "5.É¾³ıÁ½µã¼äËùÓĞ¿É´ïÂ·¾¶\n";
-        cout << "0. ·µ»Ø\n";
+        cout << "\n=== ? ===\n";
+        cout << "1. ?\n";
+        cout << "2. ????\n";
+        cout << "3. ????\n";
+        cout << "4. ?·?\n";
+        cout << "5.???·\n";
+        cout << "0. \n";
         cin >> choice;
         cin.ignore();
 
@@ -372,11 +372,11 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
         {
         case 1:
         {
-            cout << "ÊäÈëÆğµãÃû³Æ£º";
+            cout << "?";
             getline(cin, start);
-            cout << "ÊäÈëÖÕµãÃû³Æ£º";
+            cout << "??";
             getline(cin, end);
-            cout << "ÊäÈë¾àÀë£º";
+            cout << "?";
             cin >> weight;
             cin.ignore();
 
@@ -385,17 +385,17 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
 
             if (startIdx == -1 || endIdx == -1)
             {
-                cout << "¶¥µã²»´æÔÚ£¡" << endl;
+                cout << "??" << endl;
                 break;
             }
 
-            // ¼ì²éÊÇ·ñÒÑ¾­´æÔÚ¸Ã±ß
+            // ???ñ
             ArcNode *current = graph.vertexList[startIdx].firstedge;
             while (current)
             {
                 if (current->adjvex == endIdx)
                 {
-                    cout << "±ßÒÑ´æÔÚ£¡" << endl;
+                    cout << "??" << endl;
                     break;
                 }
                 current = current->next;
@@ -403,7 +403,7 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
 
             if (!current)
             {
-                // ´´½¨ĞÂµÄ±ß½Úµã
+                // µ???
                 ArcNode *newArc = new ArcNode;
                 newArc->adjvex = endIdx;
                 newArc->weight = weight;
@@ -411,7 +411,7 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 newArc->visited = false;
                 graph.vertexList[startIdx].firstedge = newArc;
 
-                // Ìí¼Ó·´Ïò±ß£¨ÎŞÏòÍ¼£©
+                // ???
                 ArcNode *reverseArc = new ArcNode;
                 reverseArc->adjvex = startIdx;
                 reverseArc->weight = weight;
@@ -420,7 +420,7 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 graph.vertexList[endIdx].firstedge = reverseArc;
 
                 graph.edgeCount++;
-                cout << "±ßÒÑÌí¼Ó£¡" << endl;
+                cout << "?" << endl;
                 graphManager.saveGraphToFile(graphManager.currentIndex);
             }
             break;
@@ -428,9 +428,9 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
 
         case 2:
         {
-            cout << "ÊäÈëÆğµãÃû³Æ£º";
+            cout << "?";
             getline(cin, start);
-            cout << "ÊäÈëÖÕµãÃû³Æ£º";
+            cout << "??";
             getline(cin, end);
 
             startIdx = graph.getVertexIndex(start);
@@ -438,11 +438,11 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
 
             if (startIdx == -1 || endIdx == -1)
             {
-                cout << "¶¥µã²»´æÔÚ£¡" << endl;
+                cout << "??" << endl;
                 break;
             }
 
-            // É¾³ıÕıÏò±ß
+            // ?
             ArcNode *current = graph.vertexList[startIdx].firstedge;
             ArcNode *prev = nullptr;
             while (current)
@@ -465,7 +465,7 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 current = current->next;
             }
 
-            // É¾³ı·´Ïò±ß
+            // ?
             current = graph.vertexList[endIdx].firstedge;
             prev = nullptr;
             while (current)
@@ -487,18 +487,18 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 current = current->next;
             }
 
-            cout << "±ßÒÑÉ¾³ı£¡" << endl;
+            cout << "?" << endl;
             graphManager.saveGraphToFile(graphManager.currentIndex);
             break;
         }
 
         case 3:
         {
-            cout << "ÊäÈëÆğµãÃû³Æ£º";
+            cout << "?";
             getline(cin, start);
-            cout << "ÊäÈëÖÕµãÃû³Æ£º";
+            cout << "??";
             getline(cin, end);
-            cout << "ÊäÈëĞÂµÄ¾àÀë£º";
+            cout << "µ??";
             cin >> weight;
             cin.ignore();
 
@@ -507,11 +507,11 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
 
             if (startIdx == -1 || endIdx == -1)
             {
-                cout << "¶¥µã²»´æÔÚ£¡" << endl;
+                cout << "??" << endl;
                 break;
             }
 
-            // ĞŞ¸ÄÕıÏò±ßÈ¨Öµ
+            // ???
             ArcNode *current = graph.vertexList[startIdx].firstedge;
             while (current)
             {
@@ -523,7 +523,7 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 current = current->next;
             }
 
-            // ĞŞ¸Ä·´Ïò±ßÈ¨Öµ
+            // ????
             current = graph.vertexList[endIdx].firstedge;
             while (current)
             {
@@ -535,37 +535,37 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 current = current->next;
             }
 
-            cout << "±ßÈ¨ÖµÒÑĞŞ¸Ä£¡" << endl;
+            cout << "????" << endl;
             graphManager.saveGraphToFile(graphManager.currentIndex);
             break;
         }
 
         case 4:
         {
-            cout << "ÊäÈëÆğµã£º";
+            cout << "?";
             getline(cin, start);
-            cout << "ÊäÈëÖÕµã£º";
+            cout << "??";
             getline(cin, end);
             startIdx = graph.getVertexIndex(start);
             endIdx = graph.getVertexIndex(end);
             if (startIdx == -1 || endIdx == -1)
             {
-                cout << "¶¥µã²»´æÔÚ£¡" << endl;
+                cout << "??" << endl;
                 break;
             }
 
-            // ²éÕÒ×î¶ÌÂ·¾¶
+            // ·
             int path[MAX_VERTEX_NUM];
             int count = 0;
             bool found = false;
 
-            // Ê¹ÓÃ Dijkstra Ëã·¨ÕÒµ½×î¶ÌÂ·¾¶
-            const int INF = 99999;    // ÎŞÇî´ó
-            int dist[MAX_VERTEX_NUM]; // ±£´æ×î¶ÌÂ·¾¶µÄ¾àÀë
-            bool s[MAX_VERTEX_NUM];   // ±ê¼ÇÊÇ·ñÕÒµ½×î¶ÌÂ·¾¶
-            int prev[MAX_VERTEX_NUM]; // ±£´æÂ·¾¶Ç°Çı½Úµã
+            // ? Dijkstra ??·
+            const int INF = 99999;    // 
+            int dist[MAX_VERTEX_NUM]; // ·?
+            bool s[MAX_VERTEX_NUM];   // ??·
+            int prev[MAX_VERTEX_NUM]; // ·??
 
-            // ³õÊ¼»¯
+            // ?
             for (int i = 0; i < graph.vertexCount; ++i)
             {
                 dist[i] = INF;
@@ -575,13 +575,13 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
 
             dist[startIdx] = 0;
 
-            // DijkstraËã·¨Ö÷Ñ­»·
+            // Dijkstra??
             for (int i = 0; i < graph.vertexCount; ++i)
             {
                 int u = -1;
                 int minDist = INF;
 
-                // ÕÒ³öµ±Ç°Î´È·¶¨µÄ×î¶Ì¾àÀëµÄ¶¥µã
+                // ??????
                 for (int j = 0; j < graph.vertexCount; ++j)
                 {
                     if (!s[j] && dist[j] < minDist)
@@ -592,11 +592,11 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 }
 
                 if (u == -1 || u == endIdx)
-                    break; // ÕÒ²»µ½Â·¾¶»òÕÒµ½ÖÕµã
+                    break; // ?·??
 
                 s[u] = true;
 
-                // ¸üĞÂÏàÁÚ¶¥µãµÄ¾àÀë
+                // ??
                 ArcNode *currentArc = graph.vertexList[u].firstedge;
                 while (currentArc)
                 {
@@ -610,14 +610,14 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 }
             }
 
-            // ¹¹½¨Â·¾¶
+            // ·
             if (dist[endIdx] == INF)
             {
-                cout << "Ã»ÓĞÂ·¾¶¿É´ï£¡" << endl;
+                cout << "û·??" << endl;
                 break;
             }
 
-            // »ØËİÂ·¾¶
+            // ·
             int currentIndex = endIdx;
             while (currentIndex != -1)
             {
@@ -628,21 +628,21 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 }
                 else
                 {
-                    cout << "Â·¾¶Ë÷Òı³¬³ö·¶Î§£¡" << endl;
+                    cout << "·?" << endl;
                     break;
                 }
             }
 
-            // ·´×ªÂ·¾¶
+            // ?·
             reverse(path, path + count);
 
-            // É¾³ıÂ·¾¶ÉÏµÄËùÓĞ±ß
+            // ?·??
             for (int i = 0; i < count - 1; ++i)
             {
                 int from = path[i];
                 int to = path[i + 1];
 
-                // É¾³ıÕıÏò±ß
+                // ?
                 ArcNode *current = graph.vertexList[from].firstedge;
                 ArcNode *prevNode = nullptr;
                 while (current)
@@ -665,7 +665,7 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                     current = current->next;
                 }
 
-                // É¾³ı·´Ïò±ß
+                // ?
                 current = graph.vertexList[to].firstedge;
                 prevNode = nullptr;
                 while (current)
@@ -688,23 +688,23 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 }
             }
 
-            cout << "×î¶ÌÂ·¾¶ÉÏµÄËùÓĞ±ßÒÑÉ¾³ı£¡" << endl;
-            // ±£´æµ½ÎÄ¼ş
+            cout << "·???" << endl;
+            // ??
             graphManager.saveGraphToFile(graphManager.currentIndex);
             break;
         }
 
         case 5:
         {
-            cout << "ÊäÈëÆğµãÃû³Æ£º";
+            cout << "?";
             getline(cin, start);
-            cout << "ÊäÈëÖÕµãÃû³Æ£º";
+            cout << "??";
             getline(cin, end);
             startIdx = graph.getVertexIndex(start);
             endIdx = graph.getVertexIndex(end);
             if (startIdx == -1 || endIdx == -1)
             {
-                cout << "¶¥µã²»´æÔÚ£¡" << endl;
+                cout << "??" << endl;
                 break;
             }
             deleteAllPathsBetween(graph, startIdx, endIdx, graphManager);
@@ -716,14 +716,14 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
     } while (choice != 0);
 }
 
-// É¾³ıÁ½µã¼äµÄËùÓĞ¿É´ïÂ·¾¶
+// ???·
 void Admin::deleteAllPathsBetween(Graph &graph, int startIdx, int endIdx, GraphManager &graphManager)
 {
     vector<vector<int>> paths = findAllPaths(graph, startIdx, endIdx);
 
     if (paths.empty())
     {
-        cout << "Á½µã¼äÃ»ÓĞ¿É´ïÂ·¾¶£¡" << endl;
+        cout << "û??·" << endl;
         return;
     }
 
@@ -734,7 +734,7 @@ void Admin::deleteAllPathsBetween(Graph &graph, int startIdx, int endIdx, GraphM
             int from = path[i];
             int to = path[i + 1];
 
-            // É¾³ıÕıÏò±ß
+            // ?
             ArcNode *current = graph.vertexList[from].firstedge;
             ArcNode *prevNode = nullptr;
             while (current)
@@ -750,8 +750,8 @@ void Admin::deleteAllPathsBetween(Graph &graph, int startIdx, int endIdx, GraphM
                         graph.vertexList[from].firstedge = current->next;
                     }
                     ArcNode *temp = current;
-                    current = current->next; // ÏÈÒÆ¶¯Ö¸Õë
-                    delete temp;             // ÔÙÉ¾³ı½Úµã
+                    current = current->next; // ??
+                    delete temp;             // ??
                     graph.edgeCount--;
                     break;
                 }
@@ -759,7 +759,7 @@ void Admin::deleteAllPathsBetween(Graph &graph, int startIdx, int endIdx, GraphM
                 current = current->next;
             }
 
-            // É¾³ı·´Ïò±ß
+            // ?
             current = graph.vertexList[to].firstedge;
             prevNode = nullptr;
             while (current)
@@ -775,8 +775,8 @@ void Admin::deleteAllPathsBetween(Graph &graph, int startIdx, int endIdx, GraphM
                         graph.vertexList[to].firstedge = current->next;
                     }
                     ArcNode *temp = current;
-                    current = current->next; // ÏÈÒÆ¶¯Ö¸Õë
-                    delete temp;             // ÔÙÉ¾³ı½Úµã
+                    current = current->next; // ??
+                    delete temp;             // ??
                     break;
                 }
                 prevNode = current;
@@ -785,11 +785,11 @@ void Admin::deleteAllPathsBetween(Graph &graph, int startIdx, int endIdx, GraphM
         }
     }
 
-    cout << "Á½µã¼äµÄËùÓĞ¿É´ïÂ·¾¶ÒÑÉ¾³ı£¡" << endl;
+    cout << "??·?" << endl;
     graphManager.saveGraphToFile(graphManager.currentIndex);
 }
 
-// ²éÕÒËùÓĞ¿É´ïÂ·¾¶
+// ??·
 vector<vector<int>> Admin::findAllPaths(Graph &graph, int startIdx, int endIdx)
 {
     vector<vector<int>> paths;
@@ -799,7 +799,7 @@ vector<vector<int>> Admin::findAllPaths(Graph &graph, int startIdx, int endIdx)
     return paths;
 }
 
-// ¸¨Öúµİ¹éº¯Êı£¬ÓÃÓÚ²éÕÒËùÓĞÂ·¾¶
+// ???·
 void Admin::findPathsUtil(Graph &graph, int currentIdx, int endIdx, bool visited[], vector<int> &currentPath, vector<vector<int>> &paths)
 {
     if (currentIdx < 0 || currentIdx >= MAX_VERTEX_NUM || visited[currentIdx])
