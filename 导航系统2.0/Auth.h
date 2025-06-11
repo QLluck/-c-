@@ -25,7 +25,7 @@ public:
     void loadUsersFromFile();           // 从文件中读取信息
 
 public:
-    vector<User> users; // vector容器用来存储用户数据
+    
     string hashPassword(const string &password);
     string getHiddenInput(const string &prompt);
 };

@@ -13,9 +13,7 @@ private:
     DataManager();
     ~DataManager();
 
-    // 禁止拷贝和赋值
-    DataManager(const DataManager&) = delete;
-    DataManager& operator=(const DataManager&) = delete;
+
 
     sqlite3* db;              // 数据库连接句柄
     std::string dbPath;       // 数据库文件路径

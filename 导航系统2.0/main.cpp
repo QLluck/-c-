@@ -11,15 +11,20 @@ using namespace std;
 int main()
 {
     AuthManager auth;
+
     User currentUser;
+
     GraphManager graphManager;
+
     auth.loadUsersFromFile();
     string filename = "南阳地图.txt";
     graphManager.importGraph(filename);
     filename = "南阳理工学院地图.txt";
     graphManager.importGraph(filename);
     DataManager &db = DataManager::getInstance();
+
     string path = "user.db";
+    
     db.connectDB(path);
     // cout << db.isConnected << '\n';
     auth.loadUsersFromFile();

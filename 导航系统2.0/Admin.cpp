@@ -10,6 +10,7 @@ void Admin::adminMenu(AuthManager &auth, GraphManager &graphManager)
     int choice;
     do
     {
+        
         cout << "\n====== 管理员菜单 ======\n";
         cout << "1. 用户管理\n";
         cout << "2. 地图管理\n";
@@ -55,7 +56,9 @@ void Admin::adminMenu(AuthManager &auth, GraphManager &graphManager)
                 {
                     string filename;
                     cout << "输入地图文件名（包括扩展名）：";
-                    getline(cin, filename);
+
+                    cin >> filename;
+                    cin.ignore();
                     if (graphManager.importGraph(filename))
                     {
                         cout << "地图导入成功！" << endl;
@@ -296,7 +299,7 @@ void Admin::manageMapVertices(Graph &graph, GraphManager &graphManager)
                                 graph.vertexList[i].firstedge = current->next;
                             delete current;
                             graph.edgeCount--;
-                            current = prev ? prev->next : nullptr;
+                            current = prev ? prev->next : nullptr; 
                         }
                         else
                         {
@@ -415,7 +418,9 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                 ArcNode *reverseArc = new ArcNode;
                 reverseArc->adjvex = startIdx;
                 reverseArc->weight = weight;
+
                 reverseArc->next = graph.vertexList[endIdx].firstedge;
+
                 reverseArc->visited = false;
                 graph.vertexList[endIdx].firstedge = reverseArc;
 
@@ -482,6 +487,7 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
                     }
                     delete current;
                     break;
+                    
                 }
                 prev = current;
                 current = current->next;
@@ -717,7 +723,7 @@ void Admin::manageMapEdges(Graph &graph, GraphManager &graphManager)
 }
 
 // 删除两点间的所有可达路径
-void Admin::deleteAllPathsBetween(Graph &graph, int startIdx, int endIdx, GraphManager &graphManager)
+void Admin::deleteAllPathsBetween(Graph &graph, int startIdx, int endIdx, GraphManager &graphManager) 
 {
     vector<vector<int>> paths = findAllPaths(graph, startIdx, endIdx);
 
@@ -801,18 +807,18 @@ vector<vector<int>> Admin::findAllPaths(Graph &graph, int startIdx, int endIdx)
 
 // 辅助递归函数，用于查找所有路径
 void Admin::findPathsUtil(Graph &graph, int currentIdx, int endIdx, bool visited[], vector<int> &currentPath, vector<vector<int>> &paths)
-{
+{//递归出口
     if (currentIdx < 0 || currentIdx >= MAX_VERTEX_NUM || visited[currentIdx])
     {
         return;
     }
 
-    visited[currentIdx] = true;
+    visited[currentIdx] = true;//当前路径标记
     currentPath.push_back(currentIdx);
 
     if (currentIdx == endIdx)
     {
-        paths.push_back(currentPath);
+        paths.push_back(currentPath);//其中一条路径 加入path
     }
     else
     {
@@ -829,7 +835,7 @@ void Admin::findPathsUtil(Graph &graph, int currentIdx, int endIdx, bool visited
     }
 
     currentPath.pop_back();
-    visited[currentIdx] = false;
+    visited[currentIdx] = false;//当前路径取消标记
 }
 void Admin::exportUserInfo(AuthManager &auth)
 {
