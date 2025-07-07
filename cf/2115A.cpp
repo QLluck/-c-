@@ -2,47 +2,33 @@
 using namespace std;
 const int N = 5007;
 int arr[N] = {0};
-int gcd(int a ,int b )
-{  if(a>b)
-        swap(a, b);
-     while(a)
-     {
-         int temp = b % a;
-         b = a;
-         a = temp;
-     }
-     return b;
-}
-void printb(int b)
+int prime[N]={0},it;
+int me[N]={0};
+void pri()
 {
-     if(b>1)
-         printb(b / 2);
-     cout << b % 2;
+    me[0]=1;
+    me[1]=1;
+    for(int i=2; i<N ;i++)
+    {
+         if(!me[i])prime[it++]=i;
+         for(int j= 0 ;j<it ;j++)
+         {
+             if(i*prime[j]>=N)break;
+             me[i*prime[j]]=1;
+             if(i%prime[j]==0)break;
+         }
+    }
 }
 void solve()
 {
-    int n;
-    n = 50; 
-    for (int i = 1; i <= n;i++)
-    {
-        for (int j = i + 1; j <= n; j++)
-        {
-            printb(i);
-            cout << '\n';
-            printb(j);
-            cout << '\n';
-            printb(gcd(i, j));
-            cout << '\n';
-            cout << '\n';
-                            }
-    }
+   
 }
 int main()
 {
     ios::sync_with_stdio(0), cout.tie(0), cin.tie(0);
     int t;
-   // cin >> t;
-    //while (t--)
-        solve();
+    pri();
+    cout<<it<<'\n';
+    
     //printb(2);
 }
