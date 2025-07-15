@@ -45,6 +45,7 @@ void spfa(int s )
                  { sta.push(v);
                     vis[v]=1;
                  }
+                 
                 }
         }
      }

@@ -44,6 +44,7 @@ void update(ll p ,ll l,ll r,ll w)
     if(m<r) update(p<<1|1,l,r,w);
     t[p].sum = t[p<<1].sum +t[p<<1|1].sum ;
 }
+
 ll query(ll p ,ll l, ll r)
 {
     if(l<=t[p].l&&t[p].r<=r)
