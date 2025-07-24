@@ -1,31 +1,28 @@
 #include<bits/stdc++.h>
 using namespace std ;
 const int N =2e5+7 ;
+const int INF =1e9+7;
 int dp[N]={0};
-int arr[N]={0};
+int a[N]={0};
 void solve()
 {
-  int n,m;
-  cin>>m>>n;
-  for(int i=1; i<=n;i++)cin>>arr[i];
- dp[m]=1;
-  for(int i =1; i<=n;i++)
+  int v;
+  cin>>v;
+  int n;
+  cin>>n;
+  dp[v]=1 ;
+  for(int i=1;i<=n;i++)cin>>a[i];
+  int ans =INF ;
+  for(int i=1;i<=n;i++)
   {
-     for(int j =arr[i] ;j<=m ;j++)
-     {
-        if(dp[j]==0)continue;
-        int x = m-arr[j];
-        if(x>=0)dp[x]=1;
-     }
-     for(int j =1;i<=m;i++)
-     {
-         cout<<dp[i]<<' ';
-     }
-cout<<'\n';
+       for(int j= 0 ;j<=v ;j++ )
+       {
+             if(j+a[i]<=v&&dp[j+a[i]])dp[j]=1,ans =min(j,ans);
+       }
   }
-  int ans =0 ;
-  while(dp[ans]==0&&ans<m)ans++;
   cout<<ans<<'\n';
+
+ 
 }
 int main()
 {
