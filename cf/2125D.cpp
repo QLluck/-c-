@@ -19,19 +19,34 @@ int po(int a,int b)
      }
      return res %P;
 }
-vector<int > t[N];
+struct node1
+{
+      int u,v,next;
+};
+int h[N]={0},it;
+node1 g[4*N];
+void insert(int u,int v)
+{
+      g[++it].u = u;
+      g[it].v =v ;
+      g[it].next = h[u];
+      h[u]=it;
+} 
+// vector<int > t[N];
 map<pair<int,int>,int > mp;
 map<pair<int,int> ,int >mp2;
+
 struct node
 {
     int l,r,p,fa;
 };
 queue<node> que;
+
 int n,m;
 int ans =0 ;
 void bfs(int l ,int r,int p)
 {
-     que.push({l,r,p,(1-p+P)%P});
+     que.push({l,r,p,mp2[{l,r}]});
      while(que.size())
      {
            node u = que.front();
@@ -41,12 +56,12 @@ void bfs(int l ,int r,int p)
             ans =( ans + u.p * fan%P * po(u.fa,P-2)%P)%P;
             continue;
            }
-           for(int i = 0 ;i < t[u.r+1].size();i++)
+           for(int i = h[u.r+1] ;i !=0;i=g[i].next)
            {
                 int l1 = u.r+1;
-                int r1 = t[l1][i];
-                int pa = mp[{l1,t[l1][i]}] ;
-                int pf = mp2[{l1,t[l1][i]}];
+                int r1 = g[i].v;
+                int pa = mp[{l1,r1}] ;
+                int pf = mp2[{l1,r1}];
                  pa = pa*u.p%P;
                 int fa = u.fa * pf %P;
 
@@ -69,7 +84,7 @@ void solve()
         {
                mp[{l,r}]=pa;
                mp2[{l,r}]=pf ;
-               t[l].push_back(r);
+               insert(l,r);
 
         }
         else 
@@ -87,9 +102,9 @@ void solve()
       { // cout<<p.se<<'\n';
           fan = fan * p.se %P;
       }
-      for(int i =0 ;i<t[1].size();i++)
+      for(int i =h[1] ;i!=0;i=g[i].next)
       {
-        bfs(1,t[1][i],mp[{1,t[1][i]}]);
+        bfs(1,g[i].v,mp[{1,g[i].v}]);
       }
       cout<<ans<<'\n';
 
