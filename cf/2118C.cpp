@@ -23,7 +23,7 @@ void solve()
          int sum = (1LL<<i);
         if( (a[j]>>i) &1 )ans++;
         else if(k>=sum)ans++,k-=sum;
-        cout<<i<<' '<<j<<' '<<ans<<'\n';
+       // cout<<i<<' '<<j<<' '<<ans<<'\n';
      }
    }
    cout<<ans<<'\n';
