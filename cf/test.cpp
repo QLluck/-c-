@@ -1,15 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
-const int N = 2e5 + 7;
-int n, k;
-int arr[N] = {0};
+#define int long long
+void solve()
+{ 
+  int k = (1LL<<20);
+  for(int i=0;i<=31;i++)
+  {
+    cout<<(1LL<<i)<<' '<<i<<'\n';
+  }
+  
 
+}
 
-int main()
-{
-    ios::sync_with_stdio(0), cout.tie(0), cin.tie(0);
-  int ans =(0>-0);
-  cout<<ans;
-    
+signed main() {
+  int t;
+  cin>>t;
+  while(t--)
+  solve();
 }
