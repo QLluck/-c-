@@ -7,7 +7,7 @@ using namespace std;
 const int N = 3e5+7;
 const int mod = 998244353;
 int a[N];
-int solve(int l,int r)
+void solve(int l,int r)
 {
     // int l,r;
     // cin>>l>>r;
@@ -19,32 +19,28 @@ int solve(int l,int r)
         int l1 = (l>>i) &1;
         int r1 = (r>>i)&1;
         if(f==1&&l1==r1)
-        {b1+=(r1)?(1LL<<i):0;
+        { b1+=(r1)?(1LL<<i):0;
             continue;
         }
         else if(f==1) f=2;
-        if(f==2)b1+=(1LL<<i),f++;
-        else b1 += (l1||r1)?0:(1LL<<i);
+        if(f==2)
+        {   
+            b1+=(1LL<<i);
+            break;
+        }
 
     }
-    f=1;
-    for(int i= 31 ;i>=0 ;i--)
+    if(b1==r)cout<<r<<' '<<r-1<<' '<<l<<'\n';
+    else 
     {
-        int l1 = (l>>i) &1;
-        int r1 = (r>>i)&1;
-        if(f==1&&l1==r1)
-        {
-            b2+=(r1)?(1LL<<i):0;
-            continue;
-        }
-        else if(f==1) f=2;
-        if(f==2)f++;
-        else b2 += (l1==0||r1==0)?(1LL<<i):0;
+        if(b1-1==l)cout<<b1+1<<' '<<b1<<' '<<l<<'\n';
+        else cout<<b1<<' '<<b1-1<<' '<<l<<'\n';
     }
-    int ans =0 ;
-    if(l<b1&&b1<r)ans=b1;
-    else ans=b2;
-    cout<<l<< ' '<<ans<<' '<<r<<'\n';
+
+    // int ans =0 ;
+    // if(l<b1&&b1<r)ans=b1;
+    // else ans=b2;
+    // cout<<l<< ' '<<ans<<' '<<r<<'\n';
 
 
 
