@@ -30,41 +30,31 @@ void solve()
    // int n,m;
     cin>>n>>m;
     int ans =0 ;
-    for(int i=n;i<=n;i++)ts[i]=0,tn[i]=0;
+   // for(int i=1;i<=n;i++)ts[i]=0,tn[i]=0;
     for(int i=1;i<=m;i++)
     {
         
         cin>>a[i];
-        ans += (query(a[i]+1,tn)*(a[i]+1)-query(a[i]+1,ts) ) *2;
-       cout<<a[i]<<' '<<query(a[i],tn)<<' '<<query(a[i],ts)<<'\n';
-        add(max(1LL,n-a[i]),max(1LL,n-a[i]),ts);
-        add(max(1LL,n-a[i]),1,tn);
 
     }
-    for(int i=1;i<=m;i++)
+    sort(a + 1, a + m + 1);
+    // for (int i = 1; i <= m;i++)
+    //     cout << a[i] << ' ';
+    cout << '\n';
+    for (int i = 1; i <= n-1; i++)
     {
-            add(max(1LL,n-a[i]),-max(1LL,n-a[i]),ts);
-        add(max(1LL,n-a[i]),-1,tn);
+        int x = m - (lower_bound(a + 1, a + m + 1, i) - a)+1;
+
+        int y = m - (lower_bound(a + 1, a + m + 1, n - i) - a)+1;
+
+       // cout << x << ' ' << y << '\n';
+        ans += x * y - min(x, y);
     }
-    cout<<ans<<'\n';
-    // 1 2 3 4 5 6
-    // a+b >=n; min(a,b) =1  2;
-    // +m-1 m
-    // 
-    // 1//  5 6 
-    //      2 4 
-    // 1 2 2 4 
-    // 2   3 4 5 
-     //    2 4 6   
-    // 3   3 4 5 6
-      //  2  4  6 8 10 11
-    // 5  7 8  9 10 11 12 
-    // +6 ;
-    //        2 4 6 8 10 12
-    // 9  1 2 3 4 5 6 7 8 9 10 11
-    //        3 +=3 ,
-    //        
+
+        cout << ans << '\n';
+        
 }
+//134
 signed main()
 {
     ios::sync_with_stdio(0),cout.tie(0),cin.tie(0);

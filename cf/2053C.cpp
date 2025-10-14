@@ -11,7 +11,20 @@ int lowbit(int x){return x&-x;}
 void solve()
 {
 
-   
+   int n,k;
+   cin >> n >> k;
+   int sum = 1;
+   int ans = 0;
+   int n1 = n;
+   while(n>=k)
+   {
+    if(n&1)
+        ans += (sum * (1+n1) / 2);
+   // cout << sum << ' ' << (sum * (1 + n1) / 2) << '\n';
+    n >>= 1;
+    sum <<= 1;
+   }
+   cout << ans << '\n';
 }
 void test()
 {
@@ -66,11 +79,11 @@ void test()
 signed main()
 {
     ios::sync_with_stdio(0),cout.tie(0),cin.tie(0);
-    // int t;
-    // cin>>t;
-    // while(t--)
-    // { solve();
-    // }
+    int t;
+    cin>>t;
+    while(t--)
+    { solve();
+    }
     // te();
-    test();
+    // test();
 }
