@@ -39,15 +39,14 @@ void solve()
                 {
                     if(f==1)
                         break;
-                    
                     mex++;
                     f++;
                     if(mex==p)
                         mex++;
-                    
                 }
             }
-            // cout << mex << '\n';
+            if(f==0)
+                mex++;
             Max = max(Max, mex);
         }
         int ans = 0;
