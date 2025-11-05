@@ -4,58 +4,61 @@ using namespace std;
 #define pii pair<int, int>
 #define fi first
 #define se second
-const int N = 2e5 + 7;
-vector<int> a[N];
+const int N = 5e5 + 7;
+int a[N] = {0};
+deque<int> n1;
+deque<int> n0;
 
 void solve()
 {
-    int n, m;
-    cin>>n>>m;
-    int Max = 0;
+    int n;
+    n1.clear();
+    n0.clear();
+    cin >> n;
     for (int i = 1; i <= n;i++)
-        a[i].clear();
-        for (int i = 1; i <= n; i++)
+    {
+        int a;
+        cin >> a;
+        if(a&1)
+            n1.push_back(a);
+            else
+            n0.push_back(a);
+    }
+    while((n1.size() + n0.size()) >=2 )
+    {
+        int a, b;
+        if(n1.size())
         {
-            int l;
-            cin >> l;
-
-            for (int j = 1; j <= l;j++)
-            {
-                int tmp;
-                cin >> tmp;
-                a[i].push_back(tmp);
-            }
-            sort(a[i].begin(), a[i].end());
-            int mex = 0;
-            int f = 0;
-            for(auto p :a[i])
-            {
-                // cout << p << ' '<<mex<<'\n';
-                if(mex>p)
-                    continue;
-                else if(mex==p)
-                    mex++;
-                else 
-                {
-                    if(f==1)
-                        break;
-                    
-                    mex++;
-                    f++;
-                    if(mex==p)
-                        mex++;
-                    
-                }
-            }
-            // cout << mex << '\n';
-            Max = max(Max, mex);
+            a = n1.back();
+            n1.pop_back();
         }
-        int ans = 0;
-        int n1 = min(m, Max);
-        int n2 = max(0LL, m - Max);
-        // cout << Max << ' ' << n1 << ' ' << n2 << '\n';
-        ans = (n1+1) * Max + (Max + 1 + m) * n2 / 2;
-        cout << ans << '\n';
+        else 
+        {
+            a = n0.back();
+            n0.pop_back();
+        }
+        if(n1.size())
+        {
+            b = n1.back();
+            n1.pop_back();
+        }
+        else 
+        {
+            b = n0.back();
+            n0.pop_back();
+        }
+        int tmp = (a + b) / 2;
+        if(tmp&1)
+        {
+            n1.push_back(tmp);
+        }
+        else
+            n0.push_back(tmp);
+    }
+    if(n1.size())
+        cout << n1.front() << endl;
+        else
+            cout << n0.size() << endl;
 }
 signed main()
 {
