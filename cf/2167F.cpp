@@ -11,32 +11,33 @@ vector<int> t[N];
 int d[N] = {0};
 int dn[N] = {0};
 map<PII, int> mp;
-queue<PII> que;
+queue<int> que;
 int n, k;
 void bfs()
 {
     // map<PII, int> me;
 
-    map<int, int> me;
+    // map<int, int> me;
     while (que.size())
     {
-        int u = que.front().se;
-        int sum = que.front().fi;
-        d[u] = -2;
+        int u = que.front();
+        // int sum = que.front().fi;
+        
         que.pop();
         for (int i = 0; i < t[u].size(); i++)
         {
             int v = t[u][i];
-            if (d[v] == -2)
+            if (d[v] == 0)
                 continue;
-            mp[{u, v}] = n - sum;
+            mp[{u, v}] = n - dn[u]-1;
             mp[{v, u}] = dn[u] + 1;
 
             dn[v] += dn[u] + 1;
-            if (d[v] == -1)
-                continue;
-            d[v] = -1;
-            que.push({sum + 1, v});
+            
+            d[v]--;
+            d[u]--;
+            if(d[v]==1)
+            que.push( v);
         }
     }
 }
@@ -63,7 +64,7 @@ void solve()
     for (int i = 1; i <= n; i++)
     {
         if (d[i] == 1)
-            que.push({1, i});
+            que.push( i);
     }
     bfs();
     int ans = 0;
@@ -75,15 +76,17 @@ void solve()
         {
             int v = t[i][j];
             int num = mp[{i, v}];
-            if (num >= (k - 1))
+            if ((n - num - 1) >= (k - 1))
             {
-                f = 1;
-                sum += (n - num - 1) * num;
+                // f = 1;
+                sum += num  ;
             }
-            cout << i << ' ' << v << ' ' << num << ' ' << sum << '\n';
+            //  cout << i << ' ' << v << ' ' << num << ' ' << sum << '\n';
+
         }
-        if (f)
+        //  sum/=2;
             sum++;
+        // cout<<i<<' '<<sum<<'\n';
         ans += sum;
     }
     cout << ans << endl;
