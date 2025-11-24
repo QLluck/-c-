@@ -9,24 +9,29 @@ void solve()
    int n,m,k;
    cin>>n>>m>>k;
 //    for(int i=1; i<=n;i++)cin>>a[i];
-   int t = n-m*k;
-   int l= 0;
-   int r = k-1;
-   int it =0 ;
-   int num= 0;
-   int n1= n/k*m;
-   
-   for(int i =1;i<=k;i++)
+
+   int it = 1;
+   int mn = 0;
+   m = m + 1;
+   int num = 0;
+   int fu = 0 ;
+   while(it<=n)
    {
-       int j = i ;
-       while(j<=n)
-       {
-        a[j]=num;
-        it++;
-        if(it>=m+1)it=0,num++;
-        
-        j+=k;
-       }
+
+      if( (it%k==1) ||k==1 )
+      {   num = fu;
+         mn++;
+      }
+      if (mn == m + 1)
+      {
+         fu += k;
+         mn = 1;
+         num = fu;
+      }
+      a[it] = num;
+      num++;
+      it++;
+      // cout << num << ' ' << it << ' ' << mn << '\n';
    }
 
    for(int i =1; i<=n;i++)cout<<a[i]<<' ';
