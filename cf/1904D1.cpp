@@ -8,13 +8,32 @@ using namespace std;
 const int N = 2e5 + 7;
 int a[N];
 int b[N];
-int a1[N], ita;
-int a1[N], ita;
+PII a1[N];
+int ita;
+PII b1[N];
+int itb;
+int n, k;
+void bfs(int num, int s)
+{
+    for(int i=s;i<=n;i++)
+    {
+        if(num > b[i])break;
+        else if(num<a[i])break;
+        else a[i]=num;
+    }
+    for(int i=s;i>=1;i--)
+    {
+        if(num > b[i])break;
+        else if(num<a[i])break;
+        else a[i]=num;
+    }
+}
 void solve()
 {
-    int n, k;
+    
     cin >> n;
-    it = 0;
+    ita =0;
+    itb=0;
     for (int i = 1; i <= n; i++)
         cin >> a[i];
     for (int i = 1; i <= n; i++)
@@ -33,21 +52,48 @@ void solve()
         if (l != b[i])
         {
             l = b[i];
-            z[++it] = l;
+            b1[++itb].fi = l;
+            b1[itb].se =i;
         }
     }
     l = -1;
-    int itb = 0;
     for (int i = 1; i <= n; i++)
     {
         if (l != a[i])
         {
             l = a[i];
-            b[++itb] = l;
+            a1[++ita].fi = l;
+            a1[ita].se=i;
         }
     }
-    int ita = 0;
-    int itb = 0;
+    int na =1,nb=1;
+    sort(a1+1,a1+ita+1);
+    for(int i=1;i<=ita;i++)
+    {
+         
+     bfs(a1[i].fi,a1[i].se);
+
+    }
+    for(int i=1;i<=n;i++)
+    {
+        if(a[i]!=b[i])
+        {
+            cout<<"NO"<<'\n';
+            return;
+        }
+    }
+    cout<<"YES"<<'\n';
+    // for(int i=1;i<=ita;i++)cout<<a1[i]<<' ';
+    // cout<<'\n';
+    // for(int i=1;i<=itb;i++)cout<<b1[i]<<' ';
+    // cout<<'\n';
+    // while(na<=ita && nb<=itb )
+    // {
+    //     if(a1[na]==b1[nb])na++,nb++;
+    //     else na++;
+    // }
+    // if(nb==itb+1)cout<<"YES"<<'\n';
+    // else cout<<"NO"<<'\n';
 }
 // 0 1 2 3 4 5 6 7
 // 0 1 2 3 0 1 2 3
