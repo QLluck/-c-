@@ -89,7 +89,6 @@ void solve()
     { cout<<"YES"<<'\n';
         return;
     }
-
     }
    cout<<"NO"<<'\n';
 
