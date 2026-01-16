@@ -3,8 +3,7 @@ using namespace std;
 #define int long long 
 #define fi first 
 #define se second
-#define  PII pair<int,int> 
-const int N = 2e5+7;
+const int N = 1e4+7;
 int a[N];
 int d[N];
 int me[N];
@@ -17,7 +16,9 @@ int cnt=0,cntb=0;
 vector<int> e[N];
 vector<int> ef[N];
 vector<int>belog[N];
-map< PII , int > mp;
+map<int,int>mp;
+bitset<N> p[N];
+bitset<N> pf[N];
 
 // int find(int x)
 // {
@@ -60,28 +61,16 @@ void tarjan(int u)
      
 }
 
-int bfs(int s,int d[],vector<int>e[])
+bitset<N> bfs(int u,vector<int> e[],bitset<N> p[])
 {
-    queue<int>que;
-    map<int,int>mp;
-    int num =0 ;
-    que.push(s);
-    mp[s]=1;
-    while(que.size())
+    p[u][u]=1;
+    for( auto v:e[u])
     {
-         int u = que.front();
-         num++;
-         que.pop();
-
-         for(int i= 0 ;i<e[u].size();i++)
-         {
-            int v = e[u][i];
-            if(mp[v])continue;
-            mp[v]=1;
-            que.push(v);
-         }
+          if(p[v].count()) p[u]|=p[v];
+          else p[u]|=bfs(v,e,p);
     }
-    return num;
+    return p[u];
+    
 }
 void solve()
 {
@@ -90,17 +79,14 @@ cnt=0,cntb=0;
      int n,m;
      cin>>n>>m;
      mp.clear();
-     for(int i=1;i<=n;i++)dfn[i]=0,low[i]=0,instack[i]=0,e[i].clear(),ef[i].clear(),d[i]=1,df[i]=1,ans[i]=0,me[i]=1;
+     for(int i=1;i<=n;i++)dfn[i]=0,low[i]=0,instack[i]=0,e[i].clear(),ef[i].clear(),d[i]=1,df[i]=1,ans[i]=0,me[i]=1,p[i].reset(),pf[i].reset();
       int zi =0 ;
      for(int i=1;i<=m;i++)
      {
         int u,v;
         cin>>u>>v;
-        if(mp[{u,v}]==0)
-        { e[u].push_back(v);
+        e[u].push_back(v);
         ef[v].push_back(u);
-        mp[{u,v}]=1;
-        }
         if(u==v)zi=1;
 
      }
@@ -112,27 +98,19 @@ cnt=0,cntb=0;
      }
      
      for(int i=1;i<=n;i++)if(!dfn[i])tarjan(i);
-
          if(n!=cntb)
      {
         for(int i=1;i<=n;i++)cout<<0;
         cout<<'\n';
         return;
      }
-      for(int i=1;i<=n;i++)d[i]=bfs(i,d,e);
-      for(int i=1;i<=n;i++)df[i]=bfs(i,df,ef);
-    //  for(int i=1;i<=n;i++)mp[me[i]]++;
-
-    //  for(int i=1;i<=n;i++)
-    //  { 
-    //     cout<<' '<<i<<' '<<dfs(i,d,e)<<' '<<dfs(i,df,ef)<<'\n';
-    //  }
-     
-       
-    
+       for(int i=1;i<=n;i++)if(!p[i].count())bfs(i,e,p);
+      for(int i=1;i<=n;i++)if(!pf[i].count())bfs(i,ef,pf);
         for(int i=1;i<=n;i++)
-        { 
-            int sum = df[i]+d[i]-1;
+        {    
+            d[i]=p[i].count();
+            df[i]=pf[i].count();
+            int sum = d[i]+df[i]-1;
             int num = n -sum;
             if(df[i]+num>=d[i] && d[i]+num>=df[i])
             {
@@ -141,10 +119,7 @@ cnt=0,cntb=0;
             
         }
 
-    
-
     for(int i=1;i<=n;i++)cout<<ans[i];
-
     cout<<'\n';
      
     
