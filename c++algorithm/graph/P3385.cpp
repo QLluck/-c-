@@ -28,6 +28,7 @@ bool spfa()
   que.push(1);
   d[1]=0;
   inque[1]=1;
+  cn[1]++;
 
     while(que.size())
     {
