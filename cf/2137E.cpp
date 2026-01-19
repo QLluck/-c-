@@ -9,14 +9,16 @@ const int N = 2e5 + 7;
 const int INF = 1e18 + 7;
 const int IN = 100;
 int a[N];
-
+int mp[N];
 void solve()
 {
-    map<int, int> mp;
+    // map<int, int> mp;
     int n, k;
     cin >> n >> k;
-    for (int i = 1; i <= n; i++)
-        cin >> a[i], mp[a[i]]++;
+    for (int i = 0; i <= n+2;i++)
+        mp[i] = 0;
+        for (int i = 1; i <= n; i++)
+            cin >> a[i], mp[a[i]]++;
     int it = 0;
     int sum = 0;
     int duo = 0;
