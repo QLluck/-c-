@@ -1,0 +1,1 @@
+{"name":"Local: 2172F","url":"f:\\GitHub\\-c-\\cf\\2172F.cpp","tests":[{"id":1768911863391,"input":"3\n4 2 6\n","output":"4\n"},{"id":1768912097058,"input":"6\n2 4 6 7 14 21\n","output":"5\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\GitHub\\-c-\\cf\\2172F.cpp","group":"local","local":true}

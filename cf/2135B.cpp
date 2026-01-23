@@ -7,104 +7,60 @@ using namespace std;
 #define se second
 const int N = 2e5 + 7;
 const int INF = 1e18 + 7;
-const int IN = 100;
+const int IN = 1e9;
 PII a[N];
 
 void solve()
 {
-    int xmi = INF;
-    int ymi = INF;
-    int xma = -INF;
-    int yma = -INF;
-    int ld = INF;
-    int rd = INF;
-    int ru = INF;
-    int xmiy, xmay, ymix, ymax;
+
     int n;
     cin >> n;
+    int mijia = INF;
+    int mijian = INF;
     for (int i = 1; i <= n; i++)
     {
         int x, y;
         cin >> x >> y;
-        a[i].fi = x, a[i].se = y;
-        int ldm = abs(x + IN) + abs(y + IN);
-        if (ldm <= ld)
-        {
-            xmi = x;
-            xmiy = y;
-            ld = ldm;
-        }
-        int rdm = abs(x - IN) + abs(y + IN);
-        if (rdm <= rd)
-        {
-            ymi = y;
-            xma = x;
-            xmay = y;
-            ymix = x;
-            rd = rdm;
-        }
-        int rum = abs(x - IN) + abs(y - IN);
-        if (rum <= ru)
-        {
-            yma = y;
-            ymax = x;
-            ru = rum;
-        }
+        // a[i].fi = x, a[i].se = y;
+        mijia = min(-x - y, mijia);
+        mijian = min(x - y, mijian);
     }
-    // int xmi1 = INF;
-    // int ymi1 = INF;
-    // int xma1 = -INF;
-    // int yma1 = -INF;
-    // for (int i = 1; i <= n;i++)
-    // {
-    //     if(a[i].se==ymi)
-    //     {
-    //         xmi1 = min(xmi1, a[i].fi);
-    //         xma1 = max(xma1, a[i].fi);
-    //     }
-    //     if (a[i].fi == xma)
-    //     {
-    //         yma1 = max(yma1, a[i].se);
-    //         ymi1 = min(ymi1, a[i].se);
-    //     }
-    // }
-    // xma = xma1;
-    // xmi = xmi1;
-    // ymi = ymi1;
-    // yma = yma1;
     int tmp;
-    cout << "? D " << IN << endl;
+    cout << "? U " << IN << '\n';
     cin >> tmp;
-    cout << "? D " << IN << endl;
+    cout.flush();
+    cout << "? U " << IN << '\n';
     cin >> tmp;
-    cout << "? L " << IN << endl;
+    cout.flush();
+    cout << "? R " << IN << '\n';
     cin >> tmp;
-    cout << "? L " << IN << endl;
-    int s1 = 0;
-    cin >> s1;
-    cout << "? R " << IN << endl;
+    cout.flush();
+    cout << "? R " << IN << '\n';
     cin >> tmp;
-    cout << "? R " << IN << endl;
+    cout.flush();
+    // cout << tmp << '\n';
+    int res1 = tmp - 4 * IN - mijia;
+    cout << "? L " << IN << '\n';
     cin >> tmp;
-    cout << "? R " << IN << endl;
-    int s2;
-    cin >> s2;
-    int y1 = (s1 + s2 + xma - xmi - 3 * IN - (xmiy + IN) - (xmay + IN)) / 2;
-    y1 = -IN - y1;
-
-    cout << "? U " << IN << endl;
+    cout.flush();
+    cout << "? L " << IN << '\n';
     cin >> tmp;
-    cout << "? U " << IN << endl;
+    cout.flush();
+    cout << "? L " << IN << '\n';
     cin >> tmp;
-    cout << "? U " << IN << endl;
-    cin >> s1;
-    int x1 = (s1 + s2 + yma - ymi - 3 * IN - (IN - ymax) - (IN - ymix)) / 2;
-    x1 = IN + x1;
-    x1 = x1 - 3 * IN;
-    x1 += 2 * IN;
-    y1 += 2 * IN;
-    cout << "! " << x1 << ' ' << y1 << '\n';
+    cout.flush();
+    cout << "? L " << IN << '\n';
+    cin >> tmp;
+    cout.flush();
+    int res2 = tmp - mijian-4*IN;
+    // cout << res1 << ' ' << res2 << '\n';
+    cout << "! " << ((res1 - res2) / 2) << ' ' << ((res1 + res2) / 2) << '\n';
+    cout.flush();
 }
+// x + y +4INF + min(-xi-yi);
+// x+y
+//
+// min(xi - (xi+2*in)+ y+2*n-yi )=y-x+4*in +min(xi-yi)
 signed main()
 {
     // ios::sync_with_stdio(0), cout.tie(0), cin.tie(0);
